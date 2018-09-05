@@ -1,4 +1,5 @@
 $(document).ready(function(){
+  // app open
   $('#score').html('0');
   randNum();
 });
@@ -6,10 +7,14 @@ $(document).ready(function(){
 $(document).on('click', 'button', function(){
 	check($(this).attr('value'));
 });
+
 var operators = ['+', '-'];
 var true_result = 0;
 var show_result = 0;
+
 function randNum(){
+  // random math: 2 number, operator and show_result
+  // true_result - 1 <= show_result <= true_result + 1
   var num1 = Math.floor(Math.random()*20 + 1);
   var num2 = Math.floor(Math.random()*20 + 1);
   switch(operators[Math.floor(Math.random() * operators.length)]) {
@@ -24,12 +29,15 @@ function randNum(){
   		show_result = true_result + Math.floor(Math.random() * 2);
       break;
   }
+  
+  // show random number to web
   $('.num1').html(num1);
   $('.num2').html(num2);
   $('.result').html(show_result);
 }
 
 function check(arg){
+  // check the result
 	if((arg == "true" && true_result == show_result) || (arg != "true" && true_result != show_result)){
     	var score = parseInt($('#score').text());
       $('#score').text(score + 1);			
@@ -49,6 +57,7 @@ function disable_all(){
 
 
 function count_down(){
+  // set time out for per question
 	setInterval(function(){
 		$('#time').css('width', parseInt($('#time').css('width')) - 30);
     if($('#time').css('width') == 0){
