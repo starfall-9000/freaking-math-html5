@@ -1,12 +1,59 @@
-body {
-  background: #fff;
+html {
+  height: 100%;
 }
 
-#time {
-  height: 25px;
-  width: 300px;
-  background-color: red;
-  margin-left: 20px;
+body {
+  display: flex;
+  background: rgba(30, 145, 214, 0.3);
+  color: white;
+  height: 100%;
+}
+
+.container {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  max-width: 500px;
+  min-width: 360px;
+  background: #2e4057;
+}
+
+.top-container {
+  min-width: 360px;
+  align-self: center;
+}
+
+.logo {
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+#score {
+  font-size: 30px;
+  margin-left: 10px;
+  font-weight: 700;
+}
+
+.time-view {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  position: relative;
+}
+
+.time {
+  position: absolute;
+  height: 10px;
+  left: 50px;
+  right: 0;
+  background-color: #e4fde1;
+  border-radius: 10px;
+  align-self: center;
+}
+
+.time-background {
+  background-color: #e59500;
 }
 
 .float-left {
@@ -15,20 +62,40 @@ body {
 
 .main-container {
   clear: both;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.button-view  {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  min-width: 260px;
+  margin-top: 50px;
 }
 
 button {
   height: 100px;
   width: 100px;
   border-radius: 5px;
-  margin-top: 50px;
+}
+
+.math {
+  display: flex;
+  justify-content: space-between;
+  min-width: 260px;
 }
 
 .big-text {
-	font-size: 50px;
-	margin-left: 50px;
+  font-size: 50px;
 }
 
-.margin-left {
-	margin-left: 50px;
+.button-left {
+  background: #3fa34d;
 }
+
+.button-right {
+  background: #ad343e;
+}
+
