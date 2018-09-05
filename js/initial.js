@@ -1,8 +1,12 @@
 $(document).ready(function(){
   // app open
+  initGame();
+});
+
+function initGame() {
   $('#score').html('0');
   randNum();
-});
+}
 
 $(document).on('click', 'button', function(){
 	check($(this).attr('value'));
