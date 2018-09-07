@@ -5,10 +5,11 @@ $(document).ready(function(){
 
 function initGame() {
   $('#score').html('0');
+  $('#time').css('right', '0');
   randNum();
 }
 
-$(document).on('click', 'button', function(){
+$(document).on('click', '.main-button', function(){
 	check($(this).attr('value'));
 });
 
@@ -49,8 +50,7 @@ function check(arg){
     count_down();
     randNum();
    } else {
-     disable_all();
-     alert('Game Over');
+     gameOver();
    }
 }
 
@@ -60,17 +60,32 @@ function disable_all(){
 }
 
 
-function count_down(){
+function count_down(time = 150){
   // set time out for per question
   const width = parseInt($('#time').css('width'))
   const distance = width / 10
   var countDownInterval = setInterval(function(){
     if(parseInt($('#time').css('width')) == 0){
       clearInterval(countDownInterval);
-      disable_all();
-      alert('Game Over');
+      gameOver();
     }
     $('#time').css('right', parseInt($('#time').css('right')) + distance);
-  }, 150);
+  }, time);
 }
 
+$(document).on('click', '#play-button', function() {
+  playGame();
+});
+
+function playGame() {
+  $('.pop-up-container').css('display', 'none')
+  initGame();
+  count_down(200);
+  randNum();
+}
+
+function gameOver() {
+  $('.pop-up-container').css('display', 'block');
+  $('.pop-up-title').text('Score: ' + $('#score').text());
+  $('#play-button').text('Try Again');
+}
