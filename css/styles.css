@@ -15,12 +15,12 @@ body {
   flex-direction: column;
   justify-content: space-between;
   max-width: 500px;
-  min-width: 360px;
+  min-width: 300px;
   background: #2e4057;
 }
 
 .top-container {
-  min-width: 360px;
+  min-width: 300px;
   align-self: center;
 }
 
@@ -71,8 +71,8 @@ body {
   display: flex;
   flex-direction: row;
   justify-content: space-around;
-  min-width: 260px;
-  margin-top: 50px;
+  min-width: 240px;
+  margin-top: 30px;
 }
 
 button {
@@ -84,11 +84,11 @@ button {
 .math {
   display: flex;
   justify-content: space-between;
-  min-width: 260px;
+  min-width: 240px;
 }
 
 .big-text {
-  font-size: 50px;
+  font-size: 40px;
 }
 
 .button-left {

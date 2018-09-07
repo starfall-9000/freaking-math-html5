@@ -42,15 +42,15 @@ function randNum(){
 
 function check(arg){
   // check the result
-	if((arg == "true" && true_result == show_result) || (arg != "true" && true_result != show_result)){
-    	var score = parseInt($('#score').text());
-      $('#score').text(score + 1);			
-  		$('#time').css('width', '300');
-			count_down();
-    	randNum();
+  if((arg == "true" && true_result == show_result) || (arg != "true" && true_result != show_result)){
+    var score = parseInt($('#score').text());
+    $('#score').text(score + 1);
+    $('#time').css('right', '0');
+    count_down();
+    randNum();
    } else {
      disable_all();
-     alert('GaMeOvEr');
+     alert('Game Over');
    }
 }
 
@@ -62,13 +62,15 @@ function disable_all(){
 
 function count_down(){
   // set time out for per question
-	setInterval(function(){
-		$('#time').css('width', parseInt($('#time').css('width')) - 30);
-    if($('#time').css('width') == 0){
-    	clearInterval(this);
-     	disable_all();
-    	alert('gAmEoVeR');
+  const width = parseInt($('#time').css('width'))
+  const distance = width / 10
+  var countDownInterval = setInterval(function(){
+    if(parseInt($('#time').css('width')) == 0){
+      clearInterval(countDownInterval);
+      disable_all();
+      alert('Game Over');
     }
-	}, 100);
+    $('#time').css('right', parseInt($('#time').css('right')) + distance);
+  }, 150);
 }
 
