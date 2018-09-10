@@ -38,17 +38,41 @@ function handleResponse(response) {
 }
 
 function getLeaderboard() {
-  renderListLeaderboard(mockLeaderboard)
-  // need to setup enviroment
+  if (gameEnv === 'DEV') {
+    renderListLeaderboard(mockLeaderboard)
+  } else {
+    FBInstant.getLeaderboardAsync('freaking_math_score')
+      .then(leaderboard => leaderboard.getEntriesAsync(7, 0))
+      .then(entries => renderListLeaderboard(entries))
+      .catch(error => console.error(error))
+  }
 }
 
 function updateLeaderboard() {
-  getPlayerLeaderboard()
+  const score = parseInt($('#score').text())
+  var contextId = FBInstant.context.getID()
+
+  FBInstant.getLeaderboardAsync('freaking_math_score')
+    .then(leaderboard => {
+      return leaderboard.setScoreAsync(score)
+    })
+    .then(() => getPlayerLeaderboard())
+    .catch(error => console.error(error))
 }
 
 function getPlayerLeaderboard() {
-  updateBestScore(mockPlayerInfo)
-  // need to setup enviroment
+  if (gameEnv === 'DEV') {
+    updateBestScore(mockPlayerInfo)
+  } else {
+    FBInstant.getLeaderboardAsync('freaking_math_score')
+      .then(leaderboard => leaderboard.getPlayerEntryAsync())
+      .then(entry => {
+        console.log('Log Player Entry Async api')
+        console.log(entry)
+        updateBestScore({ bestScore: entry.getScore() })
+      })
+      .catch(error => console.error(error))
+  }
 }
 
 function matchPlayer() {
