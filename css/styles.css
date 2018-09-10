@@ -172,7 +172,11 @@ ul {
   align-items: center;
 }
 
-.lb-user-icon {}
+.lb-user-icon {
+  width: 30px;
+  height: 30px;
+  border-radius: 15px;
+}
 
 .lb-user-name {
   margin-left: 10px;
@@ -181,6 +185,7 @@ ul {
 .lb-score {}
 
 #back-button {
+  min-height: 54px;
   margin-top: 10px;
 }
 
