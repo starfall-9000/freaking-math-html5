@@ -9,6 +9,12 @@ body {
   height: 100%;
 }
 
+ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
 .container {
   flex: 1;
   display: flex;
@@ -140,4 +146,41 @@ body {
   border-radius: 4px;
   margin-bottom: 10px;
   font-size: 20px;
+  color: rgb(102, 102, 102);
 }
+
+.leaderboard-content {
+  display: none;
+  padding: 10px;
+  padding-left: 20px;
+  padding-right: 20px;
+}
+
+.leaderboard-item {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  min-height: 54px;
+  font-size: 20px;
+  color: rgb(102, 102, 102);
+}
+
+.lb-user {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.lb-user-icon {}
+
+.lb-user-name {
+  margin-left: 10px;
+}
+
+.lb-score {}
+
+#back-button {
+  margin-top: 10px;
+}
+

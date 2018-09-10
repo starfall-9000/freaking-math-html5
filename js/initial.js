@@ -89,3 +89,51 @@ function gameOver() {
   $('.pop-up-title').text('Score: ' + $('#score').text());
   $('#play-button').text('Try Again');
 }
+
+$(document).on('click', '#leaderboard-button', function() {
+  getLeaderboard();
+  showLeaderboard();
+});
+
+function getLeaderboard() {
+  const data = [{name: "An Binh", score: 10, icon: 'https://platform-lookaside.fbsbx.com/platform/instantgames/profile_pic.jpg'}, {name: "An Binh", score: 5, icon: 'https://platform-lookaside.fbsbx.com/platform/instantgames/profile_pic.jpg'}, {name: "An Binh", score: 3, icon: 'https://platform-lookaside.fbsbx.com/platform/instantgames/profile_pic.jpg'}];
+  renderListLeaderboard(data);
+}
+
+function renderListLeaderboard(data) {
+  const list = data.map(item => renderLeaderboardItem(item)).join("")
+  $('#leaderboard-table').empty()
+  $('#leaderboard-table').append(list);
+}
+
+function renderLeaderboardItem(item) {
+  return (
+    '<li class="leaderboard-item">' +
+      '<div class="lb-user">' +
+        '<img class="lb-user-icon" src="' +
+          item.icon +
+        '"/>' +
+        '<span class="lb-user-name">' +
+          item.name +
+        '</span>' +
+      '</div>' +
+      '<span class="lb-score">' +
+        item.score +
+      '</span>' +
+    '</li>'
+  );
+}
+
+function showLeaderboard(isShow = true) {
+  if (isShow) {
+    $('.leaderboard-content').css('display', 'block')
+    $('.pop-up-content').css('display', 'none')
+  } else {
+    $('.leaderboard-content').css('display', 'none')
+    $('.pop-up-content').css('display', 'block')
+  }
+}
+
+$(document).on('click', '#back-button', function() {
+  showLeaderboard(false);
+});
