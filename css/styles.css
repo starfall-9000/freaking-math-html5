@@ -76,7 +76,7 @@ ul {
   margin-bottom: 100px;
 }
 
-.button-view  {
+.button-view {
   display: flex;
   flex-direction: row;
   justify-content: space-around;
@@ -182,10 +182,10 @@ ul {
   margin-left: 10px;
 }
 
-.lb-score {}
+.lb-score {
+}
 
 #back-button {
   min-height: 54px;
   margin-top: 10px;
 }
-
