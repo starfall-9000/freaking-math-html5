@@ -27,58 +27,77 @@
 
 <body>
   <div class="container">
-    <div class="top-container">
-      <h2 class="logo">
-        Freaking Math
-      </h2>
-      <p>
-        Current score: <span id="score">0</span>
-      </p>
-      <div class="time-view">
-        <div>Time:</div>
-        <div class="float-left time"></div>
-        <div class="float-left time time-background" id="time"></div>
-      </div>
-    </div>
-    <div class="main-container">
-      <div class="math big-text">
-        <span class="num1">.</span>
-        <span class="operator">.</span>
-        <span class="num2">.</span>
-        =
-        <span class='result'>.</span>
-      </div>
-      <div class="button-view">
-        <button type='button' class='main-button button-left' value='true'>
-          True
-        </button>
-        <button type='button' class='main-button button-right' value='false'>
-          False
-        </button>
-      </div>
-    </div>
-    <div class="pop-up-container">
-      <div class="pop-up-box">
-        <div class="pop-up-content">
-          <p class="pop-up-title">
-            Let's Play!
-          </p>
-          <button type='button' class='pop-up-button' id='play-button'>
-            Play
+    <div class="home-screen">
+      <img class="logo" src="./images/logo.png" />
+      <div class="home-main">
+        <div class="btn-home-content">
+          <button class="btn-home-center" id="btn-home-play">
+            <img src="./images/btn-home-play.png" />
           </button>
-          <button type='button' class='pop-up-button' id='leaderboard-button'>
-            Leaderboard
+          <button class="btn-home-center">
+            <img id="btn-home-friend" src="./images/btn-home-friend.png" />
+          </button>
+          <button class="btn-home-center">
+            <img id="btn-home-time" src="./images/btn-home-time.png" />
           </button>
         </div>
-        <div class="leaderboard-content">
-          <ul id="leaderboard-table">
-          </ul>
-          <button type='button' class='pop-up-button' id='back-button'>
-            Back
-          </button>
+        <div class="home-bottom-bar">
+          <img class="btn-home-bottom" id="btn-home-exit" src="./images/btn-home-exit.png" />
+          <img class="btn-home-bottom" id="btn-home-leaderboard" src="./images/btn-home-leaderboard.png" />
+          <img class="btn-home-bottom" id="btn-home-help" src="./images/btn-home-help.png" />
+          <img class="btn-home-bottom" id="btn-home-sound" src="./images/btn-home-sound.png" />
+          <img class="btn-home-bottom" id="btn-home-avatar" src="./images/btn-home-background.png" />
         </div>
       </div>
     </div>
+    <div class="main-screen">
+      <div class="time" id="time"></div>
+      <div class="main-header">
+        <button class="btn-main back">
+          <img id="btn-main-back" src="./images/ic-back.png" />
+        </button>
+      </div>
+    </div>
+  </div>
+  <div class="main-container">
+    <div class="math big-text">
+      <span class="num1">.</span>
+      <span class="operator">.</span>
+      <span class="num2">.</span>
+      =
+      <span class='result'>.</span>
+    </div>
+    <div class="button-view">
+      <button type='button' class='main-button button-left' value='true'>
+        True
+      </button>
+      <button type='button' class='main-button button-right' value='false'>
+        False
+      </button>
+    </div>
+  </div>
+  <div class="pop-up-container">
+    <div class="pop-up-box">
+      <div class="pop-up-content">
+        <p class="pop-up-title">
+          Let's Play!
+        </p>
+        <button type='button' class='pop-up-button' id='play-button'>
+          Play
+        </button>
+        <button type='button' class='pop-up-button' id='leaderboard-button'>
+          Leaderboard
+        </button>
+      </div>
+      <div class="leaderboard-content">
+        <ul id="leaderboard-table">
+        </ul>
+        <button type='button' class='pop-up-button' id='back-button'>
+          Back
+        </button>
+      </div>
+    </div>
+  </div>
   </div>
 </body>
 

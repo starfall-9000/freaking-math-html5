@@ -1,3 +1,7 @@
+$(document).on('click', '#btn-home-play', function() {
+  console.log('click play')
+})
+
 $(document).on('click', '.main-button', function() {
   check($(this).attr('value'))
 })

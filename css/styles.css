@@ -1,18 +1,18 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+
 html {
-  height: 100%;
+  height: 100vh;
+  width: 100vw;
 }
 
 body {
   display: flex;
   background: rgba(30, 145, 214, 0.3);
-  color: white;
-  height: 100%;
-}
-
-ul {
-  list-style: none;
-  padding: 0;
-  margin: 0;
+  height: 100vh;
+  width: 100vw;
 }
 
 .container {
@@ -20,57 +20,85 @@ ul {
   display: flex;
   position: relative;
   flex-direction: column;
-  justify-content: space-between;
   max-width: 500px;
   min-width: 300px;
-  background: #2e4057;
+  padding: 0;
+  background-image: url('../images/background.png');
 }
 
-.top-container {
-  min-width: 300px;
-  align-self: center;
-  margin-top: 50px;
+.home-screen {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  display: none;
 }
 
 .logo {
-  text-align: center;
-  margin-bottom: 30px;
+  margin-top: 80px;
 }
 
-#score {
-  font-size: 30px;
-  margin-left: 10px;
-  font-weight: 700;
-}
-
-.time-view {
+.home-main {
+  flex: 1;
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   justify-content: space-between;
-  position: relative;
+  align-items: center;
+}
+
+.btn-home-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 44px;
+}
+
+.btn-home-center {
+  margin-bottom: 20px;
+  background: none;
+  border: none;
+}
+
+.home-bottom-bar {
+  margin-bottom: 20px;
+}
+
+.main-screen {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .time {
   position: absolute;
-  height: 10px;
-  left: 50px;
-  right: 0;
-  background-color: #e4fde1;
-  border-radius: 10px;
-  align-self: center;
+  height: 6px;
+  left: 0px;
+  right: 0px;
+  background-color: #1cd5c5;
 }
 
-.time-background {
-  background-color: #e59500;
+.main-header {
+  display: flex;
+  width: 100%;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
 }
 
-.float-left {
-  float: left;
+.btn-main {
+  background: none;
+  border: none;
+}
+
+.back {
+  margin-left: 12px;
+  margin-top: 32px;
 }
 
 .main-container {
   clear: both;
-  display: flex;
+  display: none;
   flex-direction: column;
   align-items: center;
   margin-bottom: 100px;
@@ -115,7 +143,7 @@ ul {
   right: 0;
   bottom: 0;
   background: rgba(0, 0, 0, 0.6);
-  display: block;
+  display: none;
 }
 
 .pop-up-box {
