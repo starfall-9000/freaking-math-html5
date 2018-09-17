@@ -89,15 +89,28 @@
   <div class="pop-up-container">
     <div class="pop-up-box">
       <div class="pop-up-content">
-        <p class="pop-up-title">
-          Let's Play!
-        </p>
-        <button type='button' class='pop-up-button' id='play-button'>
-          Play
-        </button>
-        <button type='button' class='pop-up-button' id='leaderboard-button'>
-          Leaderboard
-        </button>
+        <img class="ribbon" src="./images/ribbon-game-over.png" />
+        <div class="score-result-view">
+          <div class="score-result new-score-result">
+            <span class="score-result-text">New</span>
+            <span class="score-result-point">15</span>
+          </div>
+          <div class="score-result best-score-result">
+            <span class="score-result-text">Best</span>
+            <span class="score-result-point">15</span>
+          </div>
+        </div>
+        <div class="pop-up-button-view">
+          <button class="btn-pop-up" id="btn-pop-up-exit">
+            <img src="./images/btn-home-exit.png" />
+          </button>
+          <button class="btn-pop-up" id="btn-pop-up-replay">
+            <img src="./images/btn-popup-replay.png" />
+          </button>
+          <button class="btn-pop-up" id="btn-pop-up-go-home">
+            <img src="./images/btn-popup-go-home.png" />
+          </button>
+        </div>
       </div>
       <div class="leaderboard-content">
         <ul id="leaderboard-table">
