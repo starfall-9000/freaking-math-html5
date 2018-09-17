@@ -337,29 +337,43 @@ body {
   font-size: 20px;
 }
 
-.btn-lb-friend {
-  margin-left: 12px;
-  margin-right: 3px;
+.btn-lb-select {
   background: #dcfffe;
   color: #015d66;
   box-shadow: 0px -5px #f4ffff;
 }
 
-.btn-lb-week {
-  margin-right: 12px;
+.btn-lb-unselect {
   background: #015d66;
   color: #dcfffe;
   box-shadow: 0px -5px #026a75;
 }
 
-.leaderboard-item {
+.btn-lb-friend {
+  margin-left: 12px;
+  margin-right: 3px;
+}
+
+.btn-lb-week {
+  margin-right: 12px;
+}
+
+#lb-table {
+  padding: 12px;
+}
+
+.lb-item {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
-  min-height: 54px;
+  height: 56px;
   font-size: 20px;
-  color: rgb(102, 102, 102);
+  color: #015d66;
+  background-image: url('../images/btn-lb-background.png');
+  background-repeat: no-repeat;
+  background-size: cover;
+  margin-bottom: 12px;
 }
 
 .lb-user {
@@ -368,14 +382,50 @@ body {
   align-items: center;
 }
 
+.lb-rank-icon {
+  margin-left: 12px;
+}
+
+.lb-rank-icon-background {
+  width: 26px;
+  height: 26px;
+  background-image: url('../images/ic-lb-rank-background.png');
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.lb-rank-number {
+  color: #ffffff;
+  font-size: 20px;
+}
+
 .lb-user-icon {
-  width: 30px;
-  height: 30px;
-  border-radius: 15px;
+  width: 40px;
+  height: 40px;
+  border-radius: 20px;
+  margin-left: 12px;
 }
 
 .lb-user-name {
-  margin-left: 10px;
+  margin-left: 12px;
+}
+
+.lb-score-view {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-end;
+  margin-right: 10px;
+  width: 97px;
+}
+
+.lb-score-star {
+  margin-right: 8px;
+}
+
+.lb-score {
+  margin-right: 14px;
 }
 
 .guide-screen {

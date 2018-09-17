@@ -23,3 +23,5 @@
 [.] 11. add app icon, splash image
 
 [.] 12. update comment for function, variable
+
+[.] 13. update font

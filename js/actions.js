@@ -7,6 +7,7 @@ $(document).on('click', '#btn-home-play', function() {
 
 $(document).on('click', '#btn-home-leaderboard', function() {
   showScreen('.leaderboard-screen')
+  getLeaderboard()
 })
 
 $(document).on('click', '#btn-home-help', function() {
@@ -47,11 +48,10 @@ $(document).on('click', '.btn-lb-back', function() {
   showScreen('.home-screen')
 })
 
-$(document).on('click', '#leaderboard-button', function() {
-  getLeaderboard()
-  showLeaderboard()
+$(document).on('click', '.btn-lb-friend', function() {
+  showLeaderboard('FRIEND')
 })
 
-$(document).on('click', '#back-button', function() {
-  showLeaderboard(false)
+$(document).on('click', '.btn-lb-week', function() {
+  showLeaderboard('WEEK')
 })

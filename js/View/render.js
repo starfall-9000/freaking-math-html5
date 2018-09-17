@@ -1,13 +1,14 @@
 function renderListLeaderboard(data) {
   const list = data.map(item => renderLeaderboardItem(item)).join('')
-  $('#leaderboard-table').empty()
-  $('#leaderboard-table').append(list)
+  $('#lb-table').empty()
+  $('#lb-table').append(list)
 }
 
 function renderLeaderboardItem(item) {
   return (
-    '<li class="leaderboard-item">' +
+    '<li class="lb-item">' +
     '<div class="lb-user">' +
+    renderRank(item) +
     '<img class="lb-user-icon" src="' +
     item.icon +
     '"/>' +
@@ -15,9 +16,42 @@ function renderLeaderboardItem(item) {
     item.name +
     '</span>' +
     '</div>' +
+    '<div class="lb-score-view">' +
     '<span class="lb-score">' +
     item.score +
     '</span>' +
+    '<img class="lb-score-star" src="./images/ic-star-score.png" />' +
+    '</div>' +
     '</li>'
   )
+}
+
+function renderRank(item) {
+  var imageUrl = ''
+  switch (item.rank) {
+    case 1:
+      imageUrl = './images/ic-lb-rank-1.png'
+      break
+    case 2:
+      imageUrl = './images/ic-lb-rank-2.png'
+      break
+    case 3:
+      imageUrl = './images/ic-lb-rank-3.png'
+      break
+    default:
+      imageUrl = './images/ic-lb-rank-background.png'
+      break
+  }
+
+  if (item.rank <= 3) {
+    return '<img class="lb-rank-icon" src="' + imageUrl + '" />'
+  } else {
+    return (
+      '<div class="lb-rank-icon lb-rank-icon-background">' +
+      '<span class="lb-rank-number">' +
+      item.rank +
+      '</span>' +
+      '</div>'
+    )
+  }
 }

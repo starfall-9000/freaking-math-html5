@@ -74,12 +74,24 @@ function handleGameOver() {
 
 // leaderboard view-controller
 
-function showLeaderboard(isShow = true) {
-  if (isShow) {
-    $('.leaderboard-content').css('display', 'block')
-    $('.pop-up-content').css('display', 'none')
+function showLeaderboard(type = 'FRIEND') {
+  if (type === 'FRIEND') {
+    $('#btn-lb-friend').attr(
+      'class',
+      'btn-leaderboard btn-lb-tabar btn-lb-select btn-lb-friend'
+    )
+    $('.btn-lb-week').attr(
+      'class',
+      'btn-leaderboard btn-lb-tabar btn-lb-unselect btn-lb-week'
+    )
   } else {
-    $('.leaderboard-content').css('display', 'none')
-    $('.pop-up-content').css('display', 'block')
+    $('#btn-lb-friend').attr(
+      'class',
+      'btn-leaderboard btn-lb-tabar btn-lb-unselect btn-lb-friend'
+    )
+    $('.btn-lb-week').attr(
+      'class',
+      'btn-leaderboard btn-lb-tabar btn-lb-select btn-lb-week'
+    )
   }
 }
