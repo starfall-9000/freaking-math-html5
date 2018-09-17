@@ -26,54 +26,64 @@
 </head>
 
 <body>
-  <div class="container">
-    <div class="home-screen">
-      <img class="logo" src="./images/logo.png" />
-      <div class="home-main">
-        <div class="btn-home-content">
-          <button class="btn-home-center" id="btn-home-play">
-            <img src="./images/btn-home-play.png" />
-          </button>
-          <button class="btn-home-center">
-            <img id="btn-home-friend" src="./images/btn-home-friend.png" />
-          </button>
-          <button class="btn-home-center">
-            <img id="btn-home-time" src="./images/btn-home-time.png" />
-          </button>
-        </div>
-        <div class="home-bottom-bar">
-          <img class="btn-home-bottom" id="btn-home-exit" src="./images/btn-home-exit.png" />
-          <img class="btn-home-bottom" id="btn-home-leaderboard" src="./images/btn-home-leaderboard.png" />
-          <img class="btn-home-bottom" id="btn-home-help" src="./images/btn-home-help.png" />
-          <img class="btn-home-bottom" id="btn-home-sound" src="./images/btn-home-sound.png" />
-          <img class="btn-home-bottom" id="btn-home-avatar" src="./images/btn-home-background.png" />
-        </div>
-      </div>
-    </div>
-    <div class="main-screen">
-      <div class="time" id="time"></div>
-      <div class="main-header">
-        <button class="btn-main back">
-          <img id="btn-main-back" src="./images/ic-back.png" />
+  <div class="container home-screen">
+    <img class="logo" src="./images/logo.png" />
+    <div class="home-main">
+      <div class="btn-home-content">
+        <button class="btn-home-center" id="btn-home-play">
+          <img src="./images/btn-home-play.png" />
         </button>
+        <button class="btn-home-center">
+          <img id="btn-home-friend" src="./images/btn-home-friend.png" />
+        </button>
+        <button class="btn-home-center">
+          <img id="btn-home-time" src="./images/btn-home-time.png" />
+        </button>
+      </div>
+      <div class="home-bottom-bar">
+        <img class="btn-home-bottom" id="btn-home-exit" src="./images/btn-home-exit.png" />
+        <img class="btn-home-bottom" id="btn-home-leaderboard" src="./images/btn-home-leaderboard.png" />
+        <img class="btn-home-bottom" id="btn-home-help" src="./images/btn-home-help.png" />
+        <img class="btn-home-bottom" id="btn-home-sound" src="./images/btn-home-sound.png" />
+        <img class="btn-home-bottom" id="btn-home-avatar" src="./images/btn-home-background.png" />
       </div>
     </div>
   </div>
-  <div class="main-container">
-    <div class="math big-text">
-      <span class="num1">.</span>
-      <span class="operator">.</span>
-      <span class="num2">.</span>
-      =
-      <span class='result'>.</span>
+  <div class="container main-screen">
+    <div class="time" id="time"></div>
+    <div class="main-header">
+      <button class="btn-main btn-back">
+        <img id="btn-main-back" src="./images/ic-back.png" />
+      </button>
+      <div class="score-view">
+        <span id="score">0</span>
+        <img class="star-score" src="./images/ic-star-score.png" />
+      </div>
     </div>
-    <div class="button-view">
-      <button type='button' class='main-button button-left' value='true'>
-        True
-      </button>
-      <button type='button' class='main-button button-right' value='false'>
-        False
-      </button>
+    <div class="main-container">
+      <div class="math-view">
+        <div class="operation-view">
+          <span class="operator">+</span>
+          <div class="number-operation">
+            <span class="num1">21</span>
+            <span class="num2">19</span>
+          </div>
+        </div>
+        <div class="operation-result">
+          <span class="equal-character">=</span>
+          <div class="number-result">
+            <span class="result">26</span>
+          </div>
+        </div>
+      </div>
+      <div class="operation-button-view">
+        <button class="btn-main btn-result" value="true">
+          <img src="./images/btn-true.png" />
+        </button>
+        <button class="btn-main btn-result" value="false">
+          <img src="./images/btn-false.png" />
+        </button>
+      </div>
     </div>
   </div>
   <div class="pop-up-container">

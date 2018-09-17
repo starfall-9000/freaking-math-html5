@@ -3,16 +3,15 @@
   padding: 0;
 }
 
-html {
-  height: 100vh;
-  width: 100vw;
-}
-
 body {
+  flex: 1;
   display: flex;
+  flex-direction: column;
+  position: relative;
   background: rgba(30, 145, 214, 0.3);
   height: 100vh;
   width: 100vw;
+  align-items: center;
 }
 
 .container {
@@ -20,10 +19,11 @@ body {
   display: flex;
   position: relative;
   flex-direction: column;
-  max-width: 500px;
-  min-width: 300px;
   padding: 0;
   background-image: url('../images/background.png');
+  background-repeat: no-repeat;
+  background-size: cover;
+  width: 100vw;
 }
 
 .home-screen {
@@ -84,6 +84,7 @@ body {
   flex-direction: row;
   align-items: center;
   justify-content: space-between;
+  margin-top: 32px;
 }
 
 .btn-main {
@@ -91,49 +92,83 @@ body {
   border: none;
 }
 
-.back {
+.btn-back {
   margin-left: 12px;
-  margin-top: 32px;
+}
+
+.score-view {
+  display: flex;
+  color: #ffcf05;
+  font-size: 24px;
+  align-items: center;
+}
+
+.star-score {
+  margin-left: 6px;
+  margin-right: 12px;
 }
 
 .main-container {
-  clear: both;
-  display: none;
+  flex: 1;
+  display: flex;
   flex-direction: column;
+  justify-content: space-between;
   align-items: center;
-  margin-bottom: 100px;
+  margin-top: 24px;
+  margin-bottom: 24px;
+  min-width: 360px;
 }
 
-.button-view {
+.math-view {
+  display: flex;
+  flex-direction: column;
+  font-size: 90px;
+  color: #edfffe;
+  line-height: 110px;
+}
+
+.operation-view {
   display: flex;
   flex-direction: row;
-  justify-content: space-around;
-  min-width: 240px;
-  margin-top: 30px;
-}
-
-.main-button {
-  height: 100px;
-  width: 100px;
-  border-radius: 5px;
-}
-
-.math {
-  display: flex;
+  align-items: center;
   justify-content: space-between;
-  min-width: 240px;
 }
 
-.big-text {
-  font-size: 40px;
+.operator {
+  margin-right: 20px;
 }
 
-.button-left {
-  background: #3fa34d;
+.number-operation {
+  display: flex;
+  flex-direction: column;
+  min-width: 90px;
+  align-items: flex-end;
 }
 
-.button-right {
-  background: #ad343e;
+.operation-result {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.equal-character {
+  margin-right: 20px;
+}
+
+.number-result {
+  display: flex;
+  min-width: 90px;
+  justify-content: flex-end;
+}
+
+.operation-button-view {
+  padding-left: 10px;
+  padding-right: 10px;
+}
+
+.btn-result {
+  margin-left: 12px;
+  margin-right: 12px;
 }
 
 .pop-up-container {

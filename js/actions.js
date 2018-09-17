@@ -2,7 +2,7 @@ $(document).on('click', '#btn-home-play', function() {
   console.log('click play')
 })
 
-$(document).on('click', '.main-button', function() {
+$(document).on('click', '.btn-result', function() {
   check($(this).attr('value'))
 })
 
