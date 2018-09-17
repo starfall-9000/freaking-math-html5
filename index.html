@@ -41,11 +41,21 @@
         </button>
       </div>
       <div class="home-bottom-bar">
-        <img class="btn-home-bottom" id="btn-home-exit" src="./images/btn-home-exit.png" />
-        <img class="btn-home-bottom" id="btn-home-leaderboard" src="./images/btn-home-leaderboard.png" />
-        <img class="btn-home-bottom" id="btn-home-help" src="./images/btn-home-help.png" />
-        <img class="btn-home-bottom" id="btn-home-sound" src="./images/btn-home-sound.png" />
-        <img class="btn-home-bottom" id="btn-home-avatar" src="./images/btn-home-background.png" />
+        <button class="btn-home-bottom" id="btn-home-exit">
+          <img src="./images/btn-home-exit.png" />
+        </button>
+        <button class="btn-home-bottom" id="btn-home-leaderboard">
+          <img src="./images/btn-home-leaderboard.png" />
+        </button>
+        <button class="btn-home-bottom" id="btn-home-help">
+          <img src="./images/btn-home-help.png" />
+        </button>
+        <button class="btn-home-bottom" id="btn-home-sound" value=true>
+          <img id="img-home-sound" src="./images/btn-home-sound.png" />
+        </button>
+        <button class="btn-home-bottom" id="btn-home-avatar">
+          <img src="./images/btn-home-background.png" />
+        </button>
       </div>
     </div>
   </div>
@@ -120,11 +130,11 @@
         <div class="score-result-view">
           <div class="score-result new-score-result">
             <span class="score-result-text">New</span>
-            <span class="score-result-point">15</span>
+            <span class="score-result-point" id="new-score">15</span>
           </div>
           <div class="score-result best-score-result">
             <span class="score-result-text">Best</span>
-            <span class="score-result-point">15</span>
+            <span class="score-result-point" id="best-score">15</span>
           </div>
         </div>
         <div class="pop-up-button-view">

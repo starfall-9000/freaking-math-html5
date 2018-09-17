@@ -1,9 +1,9 @@
 var operators = ['+', '-']
 var trueResult = 0
 var showResult = 0
+var turnBestScore = 0 // save best score in this game turn
 
 function playGame() {
-  hidePopup()
   initGame()
   countDown(200)
 }
@@ -41,6 +41,20 @@ function check(arg) {
     randNum()
   } else {
     handleGameOver()
-    updateLeaderboard()
+    updateTurnBestScore()
   }
+}
+
+function updateTurnBestScore() {
+  // update best score in this game turn
+  // update async leaderboard only when turn best score is new
+  const score = parseInt($('#score').text())
+
+  // set time out for not render new best score
+  setTimeout(() => {
+    if (turnBestScore < score) {
+      turnBestScore = score
+      updateLeaderboard()
+    }
+  }, 300)
 }

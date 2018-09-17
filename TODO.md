@@ -10,5 +10,16 @@
 
 [.] 5. pvp mode
 
-[.] 6. refactor code
+[v] 6. refactor code (release version 1.0.21)
 
+[.] 7. add spinner when get leaderboard
+
+[.] 8. add sound
+
+[.] 9. add avatar in home-screen
+
+[.] 10. 20s mode
+
+[.] 11. add app icon, splash image
+
+[.] 12. update comment for function, variable

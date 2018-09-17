@@ -1,10 +1,27 @@
+//navigation controller
+
+function showScreen(screenTag) {
+  if (screenTag === '.home-screen') {
+    backToHome()
+  } else {
+    $('.home-screen').css('display', 'none')
+    $(screenTag).css('display', 'flex')
+  }
+}
+
+function backToHome() {
+  $('.home-screen').css('display', 'flex')
+  $('.main-screen').css('display', 'none')
+  $('.leaderboard-screen').css('display', 'none')
+  $('.guide-screen').css('display', 'none')
+  $('.pop-up-container').css('display', 'none')
+}
+
+// main game view-controller
+
 function resetScore() {
   $('#score').html('0')
   $('#time').css('right', '0')
-}
-
-function hidePopup() {
-  $('.pop-up-container').css('display', 'none')
 }
 
 function showRandowNumber(operator, num1, num2, showResult) {
@@ -22,7 +39,7 @@ function countDown(time = 150) {
     if (parseInt($('#time').css('width')) == 0) {
       clearInterval(countDownInterval)
       handleGameOver()
-      updateLeaderboard()
+      updateTurnBestScore()
     }
     $('#time').css('right', parseInt($('#time').css('right')) + distance)
   }, time)
@@ -35,10 +52,27 @@ function updateScore() {
 }
 
 function handleGameOver() {
-  $('.pop-up-container').css('display', 'block')
-  $('.pop-up-title').text('Score: ' + $('#score').text())
-  $('#play-button').text('Try Again')
+  if ($('.main-screen').css('display') === 'flex') {
+    // show game over pop up, score
+    $('.pop-up-container').css('display', 'flex')
+    $('#new-score').text($('#score').text())
+    $('#best-score').text(turnBestScore)
+
+    // show yellow color for highest score
+    const score = parseInt($('#score').text())
+    if (score <= turnBestScore) {
+      $('.ribbon').attr('src', './images/ribbon-game-over.png')
+      $('#new-score').css('color', '#ffffff')
+      $('#best-score').css('color', '#ffcf05')
+    } else {
+      $('.ribbon').attr('src', './images/ribbon-new-record.png')
+      $('#new-score').css('color', '#ffcf05')
+      $('#best-score').css('color', '#ffffff')
+    }
+  }
 }
+
+// leaderboard view-controller
 
 function showLeaderboard(isShow = true) {
   if (isShow) {

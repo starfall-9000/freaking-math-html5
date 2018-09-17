@@ -36,7 +36,6 @@ body {
   display: flex;
   flex-direction: column;
   align-items: center;
-  display: none;
 }
 
 .logo {
@@ -64,13 +63,17 @@ body {
   border: none;
 }
 
+.btn-home-bottom {
+  background: none;
+  border: none;
+}
+
 .home-bottom-bar {
   margin-bottom: 20px;
 }
 
 .main-screen {
   flex: 1;
-  display: flex;
   flex-direction: column;
   align-items: center;
   display: none;
@@ -181,7 +184,6 @@ body {
   background: rgba(0, 0, 0, 0.7);
   padding-left: 14px;
   padding-right: 14px;
-  display: flex;
   flex-direction: column;
   justify-content: center;
   display: none;
@@ -234,10 +236,14 @@ body {
 
 .score-result-text {
   font-size: 24px;
+  min-width: 60px;
+  text-align: left;
 }
 
 .score-result-point {
   font-size: 54px;
+  min-width: 80px;
+  text-align: center;
 }
 
 .pop-up-button-view {
@@ -262,7 +268,6 @@ body {
 
 .leaderboard-screen {
   flex: 1;
-  display: flex;
   align-items: center;
   display: none;
 }
@@ -375,7 +380,7 @@ body {
 
 .guide-screen {
   flex: 1;
-  display: flex;
+  display: none;
   align-items: center;
 }
 
