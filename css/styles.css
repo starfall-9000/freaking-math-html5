@@ -264,6 +264,7 @@ body {
   flex: 1;
   display: flex;
   align-items: center;
+  display: none;
 }
 
 .btn-leaderboard {
@@ -372,10 +373,15 @@ body {
   margin-left: 10px;
 }
 
-.lb-score {
+.guide-screen {
+  flex: 1;
+  display: flex;
+  align-items: center;
 }
 
-#back-button {
-  min-height: 54px;
-  margin-top: 10px;
+.guide-content {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
