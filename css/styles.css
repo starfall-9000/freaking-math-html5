@@ -375,8 +375,9 @@ body {
   color: #015d66;
   background-image: url('../images/btn-lb-background.png');
   background-repeat: no-repeat;
-  background-size: cover;
+  background-size: contain;
   margin-bottom: 12px;
+  padding-bottom: 6px;
 }
 
 .lb-user {
