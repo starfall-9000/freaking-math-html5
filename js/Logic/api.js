@@ -229,10 +229,14 @@ function rejectChallenge() {
 }
 
 function syncPlayer() {
-  updatePlayerAvatar(mockPlayerInfo)
-  // need to setup enviroment
+  if (gameEnv === 'DEV') {
+    updatePlayerAvatar(mockPlayerInfo)
+  } else {
+    updatePlayerAvatar({ avatar: FBInstant.player.getPhoto() })
+  }
 
   const { playerID, playerName, avatar, bestScore } = mockPlayerInfo
+  // need to setup enviroment
   const body = { playerID, playerName, avatar, bestScore }
 
   return post('/v1/player/sync', body)
