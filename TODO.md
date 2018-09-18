@@ -26,7 +26,7 @@
 
 [v] 13. update font (release version 1.0.30)
 
-[*] 14. exit pop-up
+[v] 14. exit pop-up (release version 1.0.31)
 
 [.] 15. DEV / PROD enviroment
 
