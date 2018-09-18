@@ -50,11 +50,8 @@ function updateTurnBestScore() {
   // update async leaderboard only when turn best score is new
   const score = parseInt($('#score').text())
 
-  // set time out for not render new best score
-  setTimeout(() => {
-    if (turnBestScore < score) {
-      turnBestScore = score
-      updateLeaderboard()
-    }
-  }, 300)
+  if (turnBestScore < score) {
+    turnBestScore = score
+    updateLeaderboard()
+  }
 }

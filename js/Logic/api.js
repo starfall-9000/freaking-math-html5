@@ -2,4 +2,10 @@ function getLeaderboard() {
   renderListLeaderboard(mockLeaderboard)
 }
 
-function updateLeaderboard() {}
+function updateLeaderboard() {
+  getPlayerLeaderboard()
+}
+
+function getPlayerLeaderboard() {
+  updateBestScore(mockPlayerInfo)
+}

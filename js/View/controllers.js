@@ -76,11 +76,11 @@ function handleGameOver() {
     // show game over pop up, score
     $('.pop-up-container').css('display', 'flex')
     $('#new-score').text($('#score').text())
-    $('#best-score').text(turnBestScore)
 
     // show yellow color for highest score
     const score = parseInt($('#score').text())
-    if (score <= turnBestScore) {
+    const bestScore = parseInt($('#best-score').text())
+    if (score <= bestScore) {
       $('.ribbon').attr('src', './images/ribbon-game-over.png')
       $('#new-score').css('color', '#ffffff')
       $('#best-score').css('color', '#ffcf05')
@@ -90,6 +90,10 @@ function handleGameOver() {
       $('#best-score').css('color', '#ffffff')
     }
   }
+}
+
+function updateBestScore(playerInfo) {
+  $('#best-score').text(playerInfo.bestScore)
 }
 
 // leaderboard view-controller
