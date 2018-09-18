@@ -17,6 +17,12 @@ function backToHome() {
   $('.pop-up-container').css('display', 'none')
 }
 
+// home view controller
+
+function updatePlayerAvatar(playerInfo) {
+  $('.img-player-avatar').attr('src', playerInfo.avatar)
+}
+
 // main game view-controller
 
 function resetScore() {
