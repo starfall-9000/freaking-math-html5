@@ -3,6 +3,8 @@
 function showScreen(screenTag) {
   if (screenTag === '.home-screen') {
     backToHome()
+  } else if (screenTag === '#quit-game-popup') {
+    showQuitGamePopup()
   } else {
     $('.home-screen').css('display', 'none')
     $(screenTag).css('display', 'flex')
@@ -15,6 +17,18 @@ function backToHome() {
   $('.leaderboard-screen').css('display', 'none')
   $('.guide-screen').css('display', 'none')
   $('.pop-up-container').css('display', 'none')
+}
+
+function showQuitGamePopup() {
+  $('.pop-up-container').css('display', 'flex')
+  $('#game-over-popup').css('display', 'none')
+  $('#quit-game-popup').css('display', 'flex')
+}
+
+function hideQuitGamePopup() {
+  $('#game-over-popup').css('display', 'block')
+  $('#quit-game-popup').css('display', 'none')
+  backToHome()
 }
 
 // home view controller

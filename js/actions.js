@@ -23,6 +23,10 @@ $(document).on('click', '#btn-home-sound', function() {
   $('#img-home-sound').attr('src', imgUrl)
 })
 
+$(document).on('click', '#btn-home-exit', function() {
+  showScreen('#quit-game-popup')
+})
+
 //main action
 
 $(document).on('click', '.btn-result', function() {
@@ -42,6 +46,10 @@ $(document).on('click', '.btn-back', function() {
   showScreen('.home-screen')
 })
 
+$(document).on('click', '#btn-pop-up-exit', function() {
+  showScreen('#quit-game-popup')
+})
+
 //leaderboard action
 
 $(document).on('click', '.btn-lb-back', function() {
@@ -54,4 +62,14 @@ $(document).on('click', '.btn-lb-friend', function() {
 
 $(document).on('click', '.btn-lb-week', function() {
   showLeaderboard('WEEK')
+})
+
+// quit-game action
+
+$(document).on('click', '#btn-quit-game', function() {
+  hideQuitGamePopup()
+})
+
+$(document).on('click', '#btn-quit-game-back', function() {
+  hideQuitGamePopup()
 })

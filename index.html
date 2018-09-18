@@ -127,7 +127,7 @@
   </div>
   <div class="pop-up-container">
     <div class="pop-up-box">
-      <div class="pop-up-content">
+      <div class="pop-up-content" id="game-over-popup">
         <img class="ribbon" src="./images/ribbon-game-over.png" />
         <div class="score-result-view">
           <div class="score-result new-score-result">
@@ -148,6 +148,17 @@
           </button>
           <button class="btn-pop-up" id="btn-pop-up-go-home">
             <img src="./images/btn-popup-go-home.png" />
+          </button>
+        </div>
+      </div>
+      <div class="pop-up-content" id="quit-game-popup">
+        <span class="quit-game-title">Are you sure?</span>
+        <div class="quit-game-view">
+          <button class="btn-pop-up btn-quit-game" id="btn-quit-game">
+            <span class="btn-quit-title">Quit</span>
+          </button>
+          <button class="btn-pop-up btn-quit-game" id="btn-quit-game-back">
+            <span class="btn-quit-title">Back</span>
           </button>
         </div>
       </div>

@@ -29,3 +29,9 @@
 [*] 14. exit pop-up
 
 [.] 15. DEV / PROD enviroment
+
+[*] 16. get best score from leaderboard
+
+[.] 17. make week-tab leaderboard
+
+[.] 18. easy game logics
