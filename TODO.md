@@ -1,6 +1,6 @@
 ### list todo
 
-[.] 1. implement new design
+[v] 1. implement new design (release version 1.0.26)
 
 [.] 2. auto run script
 
