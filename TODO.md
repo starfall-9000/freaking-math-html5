@@ -12,16 +12,20 @@
 
 [v] 6. refactor code (release version 1.0.21)
 
-[.] 7. add spinner when get leaderboard
+[*] 7. add spinner when get leaderboard
 
 [.] 8. add sound
 
-[.] 9. add avatar in home-screen
+[v] 9. add avatar in home-screen (release version 1.0.29)
 
-[.] 10. 20s mode
+[*] 10. 20s mode
 
 [.] 11. add app icon, splash image
 
-[.] 12. update comment for function, variable
+[*] 12. update comment for function, variable
 
-[.] 13. update font
+[v] 13. update font (release version 1.0.30)
+
+[*] 14. exit pop-up
+
+[.] 15. DEV / PROD enviroment
