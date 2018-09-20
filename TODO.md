@@ -30,7 +30,7 @@
 
 [.] 15. DEV / PROD enviroment
 
-[*] 16. get best score from leaderboard
+[v] 16. get best score from leaderboard (release version 1.0.32)
 
 [.] 17. make week-tab leaderboard
 
