@@ -29,8 +29,16 @@ function syncGamePlay(gameMode) {
     .then(opponentInfo => {
       hideAlertPopup()
       showScreen('.pre-match-screen')
-      const currentInfo = mockPlayerInfo
-      // need to setup enviroment
+
+      let currentInfo = {}
+      if (gameEnv === 'DEV') {
+        currentInfo = mockPlayerInfo
+      } else {
+        currentInfo = {
+          playerName: FBInstant.player.getName(),
+          avatar: FBInstant.player.getPhoto()
+        }
+      }
       updatePreMatchInfo(currentInfo, opponentInfo)
     })
     .then(() => new Promise(resolve => setTimeout(resolve, 2000)))

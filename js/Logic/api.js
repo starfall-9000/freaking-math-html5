@@ -76,8 +76,11 @@ function getPlayerLeaderboard() {
 }
 
 function matchPlayer() {
-  return new Promise(resolve => setTimeout(resolve, 1000))
-  // need to setup enviroment
+  if (gameEnv === 'DEV') {
+    return new Promise(resolve => setTimeout(resolve, 1000))
+  } else {
+    return FBInstant.matchPlayerAsync(null, true)
+  }
 }
 
 function choosePlayer() {
@@ -155,8 +158,14 @@ function syncScoreData() {
 
 function updatePlayerScore() {
   const score = parseInt($('#score').text())
-  const { contextID, playerID } = mockPlayerInfo
-  // need to setup enviroment
+  let contextID, playerID
+  if (gameEnv === 'DEV') {
+    contextID = mockPlayerInfo.contextID
+    playerID = mockPlayerInfo.playerID
+  } else {
+    contextID = FBInstant.context.getID()
+    playerID = FBInstant.player.getID()
+  }
   const body = { contextID, playerID, score }
 
   return post('/v1/context/end', body).then(response => {
@@ -174,8 +183,14 @@ function setTimeoutGetOpponentInfo() {
 
 function getOpponentInfo(type = 'SYNC_PLAYER') {
   // type = SYNC_PLAYER | SYNC_SCORE
-  const { contextID, playerID } = mockPlayerInfo
-  // need to setup enviroment
+  let contextID, playerID
+  if (gameEnv === 'DEV') {
+    contextID = mockPlayerInfo.contextID
+    playerID = mockPlayerInfo.playerID
+  } else {
+    contextID = FBInstant.context.getID()
+    playerID = FBInstant.player.getID()
+  }
   const params = { contextID, playerID }
 
   return get('/v1/context/opponent/info', params)
@@ -235,8 +250,18 @@ function syncPlayer() {
     updatePlayerAvatar({ avatar: FBInstant.player.getPhoto() })
   }
 
-  const { playerID, playerName, avatar, bestScore } = mockPlayerInfo
-  // need to setup enviroment
+  let playerID, playerName, avatar, bestScore
+  if (gameEnv === 'DEV') {
+    playerID = mockPlayerInfo.playerID
+    playerName = mockPlayerInfo.playerName
+    avatar = mockPlayerInfo.avatar
+    bestScore = mockPlayerInfo.bestScore
+  } else {
+    playerID = FBInstant.player.getID()
+    playerName = FBInstant.player.getName()
+    avatar = FBInstant.player.getPhoto()
+    bestScore = 0
+  }
   const body = { playerID, playerName, avatar, bestScore }
 
   return post('/v1/player/sync', body)
@@ -247,8 +272,14 @@ function syncPlayer() {
 }
 
 function updateGameStatus(isReady = true) {
-  const { contextID, playerID } = mockPlayerInfo
-  // need to setup enviroment
+  let contextID, playerID
+  if (gameEnv === 'DEV') {
+    contextID = mockPlayerInfo.contextID
+    playerID = mockPlayerInfo.playerID
+  } else {
+    contextID = FBInstant.context.getID()
+    playerID = FBInstant.player.getID()
+  }
   const body = { contextID, playerID, isReady }
 
   return post('/v1/context/ready', body).then(response => {
