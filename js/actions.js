@@ -1,6 +1,22 @@
 //home action
 
 $(document).on('click', '#btn-home-play', function() {
+  showScreen('.waiting-screen')
+  showScreen('.pre-match-screen')
+  updatePreMatchInfo(mockPlayerInfo, mockOpponentInfo)
+  showScreen('.main-screen')
+  playGame()
+})
+
+$(document).on('click', '#btn-home-friend', function() {
+  showScreen('.waiting-screen')
+  showScreen('.pre-match-screen')
+  updatePreMatchInfo(mockPlayerInfo, mockOpponentInfo)
+  showScreen('.main-screen')
+  playGame()
+})
+
+$(document).on('click', '#btn-home-time', function() {
   showScreen('.main-screen')
   playGame()
 })

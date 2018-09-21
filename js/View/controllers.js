@@ -1,22 +1,22 @@
 //navigation controller
 
 function showScreen(screenTag) {
-  if (screenTag === '.home-screen') {
-    backToHome()
-  } else if (screenTag === '#quit-game-popup') {
+  if (screenTag === '#quit-game-popup') {
     showQuitGamePopup()
   } else {
-    $('.home-screen').css('display', 'none')
+    hideAllScreen()
     $(screenTag).css('display', 'flex')
   }
 }
 
-function backToHome() {
-  $('.home-screen').css('display', 'flex')
+function hideAllScreen() {
+  $('.home-screen').css('display', 'none')
   $('.main-screen').css('display', 'none')
   $('.leaderboard-screen').css('display', 'none')
   $('.guide-screen').css('display', 'none')
   $('.pop-up-container').css('display', 'none')
+  $('.pre-match-screen').css('display', 'none')
+  $('.waiting-screen').css('display', 'none')
 }
 
 function showQuitGamePopup() {
@@ -28,7 +28,7 @@ function showQuitGamePopup() {
 function hideQuitGamePopup() {
   $('#game-over-popup').css('display', 'block')
   $('#quit-game-popup').css('display', 'none')
-  backToHome()
+  showScreen('.home-screen')
 }
 
 // home view controller
@@ -118,4 +118,13 @@ function showLeaderboard(type = 'FRIEND') {
       'btn-leaderboard btn-lb-tabar btn-lb-select btn-lb-week'
     )
   }
+}
+
+// pre-match view-controller
+
+function updatePreMatchInfo(playerInfo, opponentInfo) {
+  $('.current-player-avatar').attr('src', playerInfo.avatar)
+  $('.current-name-player').text(playerInfo.name)
+  $('.opponent-player-avatar').attr('src', opponentInfo.avatar)
+  $('.opponent-name-player').text(opponentInfo.name)
 }
