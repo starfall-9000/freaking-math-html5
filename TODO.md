@@ -8,11 +8,11 @@
 
 [v] 4. another game logics (release version 1.0.19)
 
-[.] 5. pvp mode
+[*] 5. pvp mode
 
 [v] 6. refactor code (release version 1.0.21)
 
-[*] 7. add spinner when get leaderboard
+[.] 7. add spinner when get leaderboard
 
 [.] 8. add sound
 
@@ -22,7 +22,7 @@
 
 [.] 11. add app icon, splash image
 
-[*] 12. update comment for function, variable
+[.] 12. update comment for function, variable
 
 [v] 13. update font (release version 1.0.30)
 
@@ -35,3 +35,7 @@
 [.] 17. make week-tab leaderboard
 
 [.] 18. easy game logics
+
+[*] 19. pvf mode
+
+[.] 20. replay in vs mode

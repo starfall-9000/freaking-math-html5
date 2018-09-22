@@ -5,7 +5,7 @@ $(document).on('click', '#btn-home-play', function() {
   showScreen('.pre-match-screen')
   updatePreMatchInfo(mockPlayerInfo, mockOpponentInfo)
   showScreen('.main-screen')
-  playGame()
+  playGame('pvp')
 })
 
 $(document).on('click', '#btn-home-friend', function() {
@@ -13,12 +13,12 @@ $(document).on('click', '#btn-home-friend', function() {
   showScreen('.pre-match-screen')
   updatePreMatchInfo(mockPlayerInfo, mockOpponentInfo)
   showScreen('.main-screen')
-  playGame()
+  playGame('pvf')
 })
 
 $(document).on('click', '#btn-home-time', function() {
   showScreen('.main-screen')
-  playGame()
+  playGame('single')
 })
 
 $(document).on('click', '#btn-home-leaderboard', function() {

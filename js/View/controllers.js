@@ -77,18 +77,60 @@ function handleGameOver() {
     $('.pop-up-container').css('display', 'flex')
     $('#new-score').text($('#score').text())
 
-    // show yellow color for highest score
-    const score = parseInt($('#score').text())
-    const bestScore = parseInt($('#best-score').text())
-    if (score <= bestScore) {
-      $('.ribbon').attr('src', './images/ribbon-game-over.png')
-      $('#new-score').css('color', '#ffffff')
-      $('#best-score').css('color', '#ffcf05')
+    if (gameMode === 'single') {
+      handleSingleModeGameOver()
     } else {
-      $('.ribbon').attr('src', './images/ribbon-new-record.png')
-      $('#new-score').css('color', '#ffcf05')
-      $('#best-score').css('color', '#ffffff')
+      handleVsModeGameOver()
     }
+  }
+}
+
+function handleSingleModeGameOver() {
+  // show new score and best score for single mode
+  $('#score-new-text').text('New')
+  $('#score-best-text').text('Best')
+  $('#best-score').css('display', 'block')
+  $('#opponent-score').css('display', 'none')
+
+  const score = parseInt($('#score').text())
+  const bestScore = parseInt($('#best-score').text())
+  // show yellow color for highest score
+  if (score <= bestScore) {
+    $('.ribbon').attr('src', './images/ribbon-game-over.png')
+    $('#new-score').css('color', '#ffffff')
+    $('#best-score').css('color', '#ffcf05')
+  } else {
+    $('.ribbon').attr('src', './images/ribbon-new-record.png')
+    $('#new-score').css('color', '#ffcf05')
+    $('#best-score').css('color', '#ffffff')
+  }
+}
+
+function handleVsModeGameOver() {
+  // show current score and opponent score for vs mode
+  $('#score-new-text').text('You')
+  $('#score-best-text').text('Waiting...')
+  $('#best-score').css('display', 'none')
+  $('#opponent-score').css('display', 'block')
+  $('#opponent-score').text('')
+  $('.ribbon').attr('src', './images/ribbon-game-over.png')
+
+  handleSyncVsModeGameOver(mockOpponentInfo)
+}
+
+function handleSyncVsModeGameOver(opponentInfo) {
+  // call after sync data
+  const opponentScore = opponentInfo.score
+  const yourScore = parseInt($('#new-score').text())
+  $('#score-best-text').text(opponentInfo.name)
+  $('#opponent-score').text(opponentScore)
+  // show yellow color for highest score
+  if (yourScore <= opponentScore) {
+    $('#new-score').css('color', '#ffffff')
+    $('#opponent-score').css('color', '#ffcf05')
+  } else {
+    $('#new-score').css('color', '#ffcf05')
+    $('#opponent-score').css('color', '#ffffff')
   }
 }
 

@@ -2,8 +2,10 @@ var operators = ['+', '-']
 var trueResult = 0
 var showResult = 0
 var turnBestScore = 0 // save best score in this game turn
+var gameMode = 'single' // single | pvp | pvf
 
-function playGame() {
+function playGame(type) {
+  gameMode = type
   initGame()
   countDown(200)
 }
