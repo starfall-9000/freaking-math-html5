@@ -81,6 +81,7 @@ function handleGameOver() {
       handleSingleModeGameOver()
     } else {
       handleVsModeGameOver()
+      syncScoreData()
     }
   }
 }
@@ -114,8 +115,6 @@ function handleVsModeGameOver() {
   $('#opponent-score').css('display', 'block')
   $('#opponent-score').text('')
   $('.ribbon').attr('src', './images/ribbon-game-over.png')
-
-  handleSyncVsModeGameOver(mockOpponentInfo)
 }
 
 function handleSyncVsModeGameOver(opponentInfo) {

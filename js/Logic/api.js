@@ -9,3 +9,7 @@ function updateLeaderboard() {
 function getPlayerLeaderboard() {
   updateBestScore(mockPlayerInfo)
 }
+
+function syncScoreData() {
+  handleSyncVsModeGameOver(mockOpponentInfo)
+}
