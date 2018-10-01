@@ -55,7 +55,7 @@ function matchPlayer() {
 function syncScoreData() {
   updatePlayerScore()
     .then(() => new Promise(resolve => setTimeout(resolve, 3000)))
-    .then(() => getOpponentInfo())
+    .then(() => getOpponentInfo('SYNC_SCORE'))
     .then(data => handleSyncVsModeGameOver(data))
     .catch(error => console.error(error))
 }
@@ -70,15 +70,31 @@ function updatePlayerScore() {
   })
 }
 
-function getOpponentInfo() {
+function getOpponentInfo(type = 'SYNC_PLAYER') {
+  // type = SYNC_PLAYER | SYNC_SCORE
   const { contextID, playerID } = mockPlayerInfo
   const params = { contextID, playerID }
 
-  return get('/v1/context/opponent/info', params).then(response => {
-    const data = handleResponse(response)
-    if (!data) throw 'Cannot Get Opponent Info'
-    return data
-  })
+  return get('/v1/context/opponent/info', params)
+    .then(response => {
+      const data = handleResponse(response)
+      if (!data) throw 'Cannot Get Opponent Info'
+      if (data === true) {
+        const timeOut = type === 'SYNC_PLAYER' ? 1000 : 3000
+        return new Promise(resolve => setTimeout(resolve, timeOut))
+      }
+      // return data
+      return data
+    })
+    .then(data => {
+      if (type === 'SYNC_PLAYER') {
+        if (!data) return getOpponentInfo(type)
+        else return data
+      } else {
+        if (!data || !data.score) return getOpponentInfo(type)
+        else return data
+      }
+    })
 }
 
 function syncPlayer() {

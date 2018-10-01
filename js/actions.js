@@ -6,7 +6,7 @@ $(document).on('click', '#btn-home-play', function() {
   matchPlayer()
     .then(() => updateGameStatus())
     .then(() => new Promise(resolve => setTimeout(resolve, 1000)))
-    .then(() => getOpponentInfo())
+    .then(() => getOpponentInfo('SYNC_PLAYER'))
     .then(opponentInfo => {
       showScreen('.pre-match-screen')
       const currentInfo = mockPlayerInfo
