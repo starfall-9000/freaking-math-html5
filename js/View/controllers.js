@@ -72,7 +72,10 @@ function updateScore() {
 }
 
 function handleGameOver() {
-  if ($('.main-screen').css('display') === 'flex') {
+  if (
+    $('.main-screen').css('display') === 'flex' &&
+    $('.pop-up-container').css('display') !== 'flex'
+  ) {
     // show game over pop up, score
     $('.pop-up-container').css('display', 'flex')
     $('#new-score').text($('#score').text())
@@ -92,6 +95,7 @@ function handleSingleModeGameOver() {
   $('#score-best-text').text('Best')
   $('#best-score').css('display', 'block')
   $('#opponent-score').css('display', 'none')
+  $('#pop-up-button-view').css('display', 'block')
 
   const score = parseInt($('#score').text())
   const bestScore = parseInt($('#best-score').text())
@@ -115,22 +119,29 @@ function handleVsModeGameOver() {
   $('#opponent-score').css('display', 'block')
   $('#opponent-score').text('')
   $('.ribbon').attr('src', './images/ribbon-game-over.png')
+  $('#pop-up-button-view').css('display', 'none')
 }
 
 function handleSyncVsModeGameOver(opponentInfo) {
   // call after sync data
-  const opponentScore = opponentInfo.score
-  const yourScore = parseInt($('#new-score').text())
-  $('#score-best-text').text(opponentInfo.name)
-  $('#opponent-score').text(opponentScore)
-  // show yellow color for highest score
-  if (yourScore <= opponentScore) {
-    $('#new-score').css('color', '#ffffff')
-    $('#opponent-score').css('color', '#ffcf05')
+  if (opponentInfo.score) {
+    const opponentScore = opponentInfo.score
+    const yourScore = parseInt($('#new-score').text())
+    $('#score-best-text').text(opponentInfo.playerName)
+    $('#opponent-score').text(opponentScore)
+    // show yellow color for highest score
+    if (yourScore <= opponentScore) {
+      $('#new-score').css('color', '#ffffff')
+      $('#opponent-score').css('color', '#ffcf05')
+    } else {
+      $('#new-score').css('color', '#ffcf05')
+      $('#opponent-score').css('color', '#ffffff')
+    }
   } else {
-    $('#new-score').css('color', '#ffcf05')
-    $('#opponent-score').css('color', '#ffffff')
+    $('#score-best-text').text('No connect')
   }
+
+  $('#pop-up-button-view').css('display', 'block')
 }
 
 function updateBestScore(playerInfo) {
@@ -165,7 +176,7 @@ function showLeaderboard(type = 'FRIEND') {
 
 function updatePreMatchInfo(playerInfo, opponentInfo) {
   $('.current-player-avatar').attr('src', playerInfo.avatar)
-  $('.current-name-player').text(playerInfo.name)
+  $('.current-name-player').text(playerInfo.playerName)
   $('.opponent-player-avatar').attr('src', opponentInfo.avatar)
-  $('.opponent-name-player').text(opponentInfo.name)
+  $('.opponent-name-player').text(opponentInfo.playerName)
 }

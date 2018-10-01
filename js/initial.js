@@ -1,15 +1,11 @@
 $(document).ready(function() {
   // app open
   initGame()
-  getPlayerInfo()
+  syncPlayer()
   getPlayerLeaderboard()
 })
 
 function initGame() {
   resetScore()
   randNum()
-}
-
-function getPlayerInfo() {
-  updatePlayerAvatar(mockPlayerInfo)
 }

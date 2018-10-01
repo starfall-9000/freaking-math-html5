@@ -2,10 +2,25 @@
 
 $(document).on('click', '#btn-home-play', function() {
   showScreen('.waiting-screen')
-  showScreen('.pre-match-screen')
-  updatePreMatchInfo(mockPlayerInfo, mockOpponentInfo)
-  showScreen('.main-screen')
-  playGame('pvp')
+
+  matchPlayer()
+    .then(() => updateGameStatus())
+    .then(() => new Promise(resolve => setTimeout(resolve, 1000)))
+    .then(() => getOpponentInfo())
+    .then(opponentInfo => {
+      showScreen('.pre-match-screen')
+      const currentInfo = mockPlayerInfo
+      updatePreMatchInfo(currentInfo, opponentInfo)
+    })
+    .then(() => new Promise(resolve => setTimeout(resolve, 2000)))
+    .then(() => {
+      showScreen('.main-screen')
+      playGame('pvp')
+    })
+    .catch(error => {
+      console.log('Error when find a match with social player: ' + error)
+      showScreen('.home-screen')
+    })
 })
 
 $(document).on('click', '#btn-home-friend', function() {
