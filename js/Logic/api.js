@@ -91,7 +91,7 @@ function getOpponentInfo(type = 'SYNC_PLAYER') {
         if (!data) return getOpponentInfo(type)
         else return data
       } else {
-        if (!data || !data.score) return getOpponentInfo(type)
+        if (!data || data.score === undefined) return getOpponentInfo(type)
         else return data
       }
     })
