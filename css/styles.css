@@ -324,6 +324,19 @@ body {
   min-width: 120px;
 }
 
+#alert-popup {
+  display: none;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.alert-message {
+  color: #015d66;
+  font-size: 24px;
+  margin: 20px;
+}
+
 .leaderboard-screen {
   flex: 1;
   align-items: center;

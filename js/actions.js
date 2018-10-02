@@ -4,19 +4,7 @@ $(document).on('click', '#btn-home-play', function() {
   showScreen('.waiting-screen')
 
   matchPlayer()
-    .then(() => updateGameStatus())
-    .then(() => new Promise(resolve => setTimeout(resolve, 1000)))
-    .then(() => getOpponentInfo('SYNC_PLAYER'))
-    .then(opponentInfo => {
-      showScreen('.pre-match-screen')
-      const currentInfo = mockPlayerInfo
-      updatePreMatchInfo(currentInfo, opponentInfo)
-    })
-    .then(() => new Promise(resolve => setTimeout(resolve, 2000)))
-    .then(() => {
-      showScreen('.main-screen')
-      playGame('pvp')
-    })
+    .then(() => syncGamePlay('pvp'))
     .catch(error => {
       console.log('Error when find a match with social player: ' + error)
       showScreen('.home-screen')
@@ -65,7 +53,17 @@ $(document).on('click', '.btn-result', function() {
 })
 
 $(document).on('click', '#btn-pop-up-replay', function() {
-  playGame()
+  if (gameMode === 'single') {
+    playGame('singles')
+  } else {
+    showScreen('.pre-match-screen')
+
+    syncGamePlay(gameMode).catch(error => {
+      console.log('Error when find a match with social player: ' + error)
+      showScreen('.home-screen')
+    })
+  }
+
   $('.pop-up-container').css('display', 'none')
 })
 

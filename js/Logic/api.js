@@ -53,6 +53,7 @@ function matchPlayer() {
 }
 
 function syncScoreData() {
+  setTimeoutGetOpponentInfo()
   updatePlayerScore()
     .then(() => new Promise(resolve => setTimeout(resolve, 3000)))
     .then(() => getOpponentInfo('SYNC_SCORE'))
@@ -68,6 +69,14 @@ function updatePlayerScore() {
   return post('/v1/context/end', body).then(response => {
     if (!handleResponse(response)) throw 'Cannot Update Player Score'
   })
+}
+
+var isWaiting = 0
+function setTimeoutGetOpponentInfo() {
+  isWaiting = isWaiting + 1
+  setTimeout(() => {
+    isWaiting = isWaiting - 1
+  }, 15000)
 }
 
 function getOpponentInfo(type = 'SYNC_PLAYER') {
@@ -87,11 +96,15 @@ function getOpponentInfo(type = 'SYNC_PLAYER') {
       return data
     })
     .then(data => {
+      if (!isWaiting) {
+        throw 'Cannot Connect To Opponent'
+      }
       if (type === 'SYNC_PLAYER') {
-        if (!data) return getOpponentInfo(type)
+        if (!data || data.isReady === false) return getOpponentInfo(type)
         else return data
       } else {
-        if (!data || data.score === undefined) return getOpponentInfo(type)
+        if (!data || data.score === undefined || data.score === null)
+          return getOpponentInfo(type)
         else return data
       }
     })

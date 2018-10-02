@@ -19,15 +19,38 @@ function hideAllScreen() {
   $('.waiting-screen').css('display', 'none')
 }
 
-function showQuitGamePopup() {
+function showPopup(popupTag) {
+  hideAllPopup()
+
   $('.pop-up-container').css('display', 'flex')
+  $('.pop-up-button-view').css('display', 'flex')
+  if (popupTag === '#game-over-popup') {
+    $('#game-over-popup').css('display', 'block')
+  } else {
+    $(popupTag).css('display', 'flex')
+  }
+}
+
+function hideAllPopup() {
   $('#game-over-popup').css('display', 'none')
-  $('#quit-game-popup').css('display', 'flex')
+  $('#quit-game-popup').css('display', 'none')
+  $('#alert-popup').css('display', 'none')
+}
+
+function showQuitGamePopup() {
+  showPopup('#quit-game-popup')
 }
 
 function hideQuitGamePopup() {
-  $('#game-over-popup').css('display', 'block')
-  $('#quit-game-popup').css('display', 'none')
+  showScreen('.home-screen')
+}
+
+function showAlertPopup(msg) {
+  showPopup('#alert-popup')
+  $('.alert-message').text(msg)
+}
+
+function hideAlertPopup() {
   showScreen('.home-screen')
 }
 
@@ -77,7 +100,7 @@ function handleGameOver() {
     $('.pop-up-container').css('display') !== 'flex'
   ) {
     // show game over pop up, score
-    $('.pop-up-container').css('display', 'flex')
+    showPopup('#game-over-popup')
     $('#new-score').text($('#score').text())
 
     if (gameMode === 'single') {
@@ -95,7 +118,6 @@ function handleSingleModeGameOver() {
   $('#score-best-text').text('Best')
   $('#best-score').css('display', 'block')
   $('#opponent-score').css('display', 'none')
-  $('#pop-up-button-view').css('display', 'block')
 
   const score = parseInt($('#score').text())
   const bestScore = parseInt($('#best-score').text())
@@ -119,7 +141,13 @@ function handleVsModeGameOver() {
   $('#opponent-score').css('display', 'block')
   $('#opponent-score').text('')
   $('.ribbon').attr('src', './images/ribbon-game-over.png')
-  $('#pop-up-button-view').css('display', 'none')
+  $('.pop-up-button-view').css('display', 'none')
+
+  setTimeout(() => {
+    if ($('#score-best-text').text() === 'Waiting...') {
+      handleSyncVsModeGameOver({})
+    }
+  }, 15000)
 }
 
 function handleSyncVsModeGameOver(opponentInfo) {
@@ -141,7 +169,7 @@ function handleSyncVsModeGameOver(opponentInfo) {
     $('#score-best-text').text('No connect')
   }
 
-  $('#pop-up-button-view').css('display', 'block')
+  $('.pop-up-button-view').css('display', 'flex')
 }
 
 function updateBestScore(playerInfo) {
