@@ -52,6 +52,10 @@ function matchPlayer() {
   return new Promise(resolve => setTimeout(resolve, 1000))
 }
 
+function choosePlayer() {
+  return new Promise(resolve => setTimeout(resolve, 1000))
+}
+
 function syncScoreData() {
   setTimeoutGetOpponentInfo()
   updatePlayerScore()

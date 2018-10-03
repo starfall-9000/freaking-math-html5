@@ -13,10 +13,13 @@ $(document).on('click', '#btn-home-play', function() {
 
 $(document).on('click', '#btn-home-friend', function() {
   showScreen('.waiting-screen')
-  showScreen('.pre-match-screen')
-  updatePreMatchInfo(mockPlayerInfo, mockOpponentInfo)
-  showScreen('.main-screen')
-  playGame('pvf')
+
+  choosePlayer()
+    .then(() => syncGamePlay('pvf'))
+    .catch(error => {
+      console.log('Error when find a match with your friend: ' + error)
+      showScreen('.home-screen')
+    })
 })
 
 $(document).on('click', '#btn-home-time', function() {

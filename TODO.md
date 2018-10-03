@@ -39,3 +39,5 @@
 [*] 19. pvf mode
 
 [.] 20. replay in vs mode
+
+[.] 21. match score
