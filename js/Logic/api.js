@@ -84,67 +84,65 @@ function matchPlayer() {
 }
 
 function choosePlayer() {
-  return (
-    new Promise(resolve => setTimeout(resolve, 1000))
-      // need to setup enviroment
-      .then(() => console.log('need to call challenge api'))
-      .catch(error => {
-        setTimeout(() => {
-          showAutoHideAlert('Your friend cannot play now...')
-        }, 1000)
-        throw 'Cannot play with this user, challenge status = ' + error
-      })
-  )
+  return new Promise(resolve => {
+    if (gameEnv === 'DEV') setTimeout(resolve, 1000)
+    else FBInstant.context.chooseAsync().then(resolve)
+  })
+    .then(() => console.log('need to call challenge api'))
+    .catch(error => {
+      setTimeout(() => {
+        showAutoHideAlert('Your friend cannot play now...')
+      }, 1000)
+      throw 'Cannot play with this user, challenge status = ' + error
+    })
 }
 
 function backupChoosePlayer() {
-  return (
-    new Promise(resolve => setTimeout(resolve, 1000))
-      // need to setup enviroment
-      .then(() => getPlayersAsync())
-      .then(opponentInfo => getChallengeInfo(opponentInfo))
-      .then(data => {
-        const { status } = data
+  return new Promise(resolve => {
+    if (gameEnv === 'DEV') setTimeout(resolve, 1000)
+    else FBInstant.context.chooseAsync().then(resolve)
+  })
+    .then(() => getPlayersAsync())
+    .then(opponentInfo => getChallengeInfo(opponentInfo))
+    .then(data => {
+      const { status } = data
 
-        if (!status || status === 'none' || status === 'rejected') {
-          return data
+      if (!status || status === 'none' || status === 'rejected') {
+        return data
+      } else {
+        throw status
+      }
+    })
+    .then(data => challengePlayer(data))
+    .catch(error => {
+      setTimeout(() => {
+        if (error === 'waited') {
+          showAutoHideAlert('You have already challenged this player!')
         } else {
-          throw status
+          showAutoHideAlert('Your friend cannot play now...')
         }
-      })
-      .then(data => challengePlayer(data))
-      .catch(error => {
-        setTimeout(() => {
-          if (error === 'waited') {
-            showAutoHideAlert('You have already challenged this player!')
-          } else {
-            showAutoHideAlert('Your friend cannot play now...')
-          }
-        }, 1000)
-        throw 'Cannot play with this user, challenge status = ' + error
-      })
-  )
+      }, 1000)
+      throw 'Cannot play with this user, challenge status = ' + error
+    })
 }
 
 function getPlayersAsync() {
-  return (
-    new Promise(resolve => setTimeout(resolve, 100))
-      // need to setup enviroment
-      .then(() => {
-        return [mockPlayerInfo, mockOpponentInfo]
-      })
-      .then(listPlayers => {
-        const filterList = listPlayers.filter(
-          player => player.playerID !== mockPlayerInfo.playerID
-        )
-        return filterList[0]
-      })
-  )
+  return new Promise(resolve => {
+    if (gameEnv === 'DEV') resolve([mockPlayerInfo, mockOpponentInfo])
+    else FBInstant.context.getPlayersAsync().then(resolve)
+  }).then(listPlayers => {
+    const filterList = listPlayers.filter(
+      player => player.playerID !== mockPlayerInfo.playerID
+    )
+    return filterList[0]
+  })
 }
 
 function switchContext() {
-  return new Promise(resolve => setTimeout(resolve, 1000))
-  // need to setup enviroment
+  return new Promise(resolve => {
+    if (gameEnv === 'DEV') setTimeout(resolve, 1000)
+    else FBInstant.context.switchAsync(challengeID).then(resolve)
+  })
 }
 
 function syncScoreData() {
@@ -230,8 +228,8 @@ function challengePlayer(challengeInfo) {
 
 function rejectChallenge() {
   const { opponentID } = saveChallengeInfo
-  const { playerID } = mockPlayerInfo
-  // need to setup enviroment
+  const playerID =
+    gameEnv === 'DEV' ? mockPlayerInfo.playerID : FBInstant.player.getID()
   const body = { playerID, opponentID }
 
   return post('/v2/context/challenge/reject', body)
@@ -288,8 +286,10 @@ function updateGameStatus(isReady = true) {
 }
 
 function subscribeGame() {
-  const { contextID, playerID } = mockPlayerInfo
-  // need to setup enviroment
+  const contextID =
+    gameEnv === 'DEV' ? mockPlayerInfo.contextID : FBInstant.context.getID()
+  const playerID =
+    gameEnv === 'DEV' ? mockPlayerInfo.playerID : FBInstant.player.getID()
   const params = { contextID, playerID }
 
   if (gameStatus !== 'FREE') {
@@ -317,9 +317,10 @@ function subscribeGame() {
 }
 
 function getChallengeInfo(opponentInfo) {
-  const { playerID } = mockPlayerInfo
-  // need to setup enviroment
-  const opponentID = opponentInfo.playerID
+  const playerID =
+    gameEnv === 'DEV' ? mockPlayerInfo.playerID : FBInstant.player.getID()
+  const opponentID =
+    gameEnv === 'DEV' ? opponentInfo.playerID : opponentInfo.getID()
   const params = { playerID, opponentID }
 
   return get('/v2/context/challenge/info', params).then(response => {
@@ -331,12 +332,13 @@ function getChallengeInfo(opponentInfo) {
 }
 
 function syncChallengeData() {
-  const { score, playerName } = mockOpponentInfo
-  // need to setup enviroment
+  const entryPointData =
+    gameEnv === 'DEV' ? mockOpponentInfo : FBInstant.getEntryPointData()
+  const { score, playerName } = entryPointData
   const opponentInfo = { score, playerName }
   handleSyncVsModeGameOver(opponentInfo)
 
-  shareChallenge(mockOpponentInfo)
+  shareChallenge(entryPointData)
 }
 
 function backupSyncChallengeData() {
@@ -370,8 +372,14 @@ function updateChallengeInfo(challengeInfo) {
 }
 
 function shareChallenge(opponentInfo) {
-  const { contextID, playerID, playerName, avatar } = mockPlayerInfo
-  // need to setup enviroment
+  const contextID =
+    gameEnv === 'DEV' ? mockPlayerInfo.contextID : FBInstant.context.getID()
+  const playerID =
+    gameEnv === 'DEV' ? mockPlayerInfo.playerID : FBInstant.player.getID()
+  const playerName =
+    gameEnv === 'DEV' ? mockPlayerInfo.playerName : FBInstant.player.getName()
+  const avatar =
+    gameEnv === 'DEV' ? mockPlayerInfo.avatar : FBInstant.player.getPhoto()
   const score = parseInt($('#score').text())
   const msg = getChallengeMsg(opponentInfo)
 
@@ -390,16 +398,17 @@ function shareChallenge(opponentInfo) {
         notification: 'PUSH'
       }
 
-      console.log(updateContent)
-      console.log('need to call api syncChallengeData')
-      showScreen('.home-screen')
+      return FBInstant.updateAsync(updateContent)
+    })
+    .then(() => {
+      if (!opponentInfo) FBInstant.quit()
     })
     .catch(error => console.error(error))
 }
 
 function getChallengeMsg(opponentInfo) {
-  const { playerName } = mockPlayerInfo
-  // need to setup enviroment
+  const playerName =
+    gameEnv === 'DEV' ? mockPlayerInfo.playerName : FBInstant.player.getName()
   const score = parseInt($('#score').text())
 
   let msg = playerName + ' just challenged you!'

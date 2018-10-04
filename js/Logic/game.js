@@ -132,10 +132,17 @@ function updateTurnBestScore() {
 }
 
 function checkIsChallenge() {
-  const contextType = 'THREAD'
-  // need to setup enviroment
-  const { playerID } = mockPlayerInfo
-  const opponentID = mockOpponentInfo.playerID
+  let contextType, playerID, opponentID
+  if (gameEnv === 'DEV') {
+    contextType = 'THREAD'
+    playerID = mockPlayerInfo.playerID
+    opponentID = mockPlayerInfo.playerID
+  } else {
+    contextType = FBInstant.context.getType()
+    playerID = FBInstant.player.getID()
+    opponentInfo = FBInstant.getEntryPointData()
+    opponentID = opponentInfo.playerID
+  }
 
   if (contextType === 'THREAD' && playerID !== opponentID) {
     showScreen('.main-screen')
