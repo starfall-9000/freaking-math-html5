@@ -152,7 +152,7 @@ function handleVsModeGameOver() {
 
 function handleSyncVsModeGameOver(opponentInfo) {
   // call after sync data
-  if (opponentInfo.score) {
+  if (opponentInfo.score !== null || opponentInfo.score !== undefined) {
     const opponentScore = opponentInfo.score
     const yourScore = parseInt($('#new-score').text())
     $('#score-best-text').text(opponentInfo.playerName)

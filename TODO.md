@@ -8,7 +8,7 @@
 
 [v] 4. another game logics (release version 1.0.19)
 
-[*] 5. pvp mode
+[v] 5. pvp mode (release version 1.0.66)
 
 [v] 6. refactor code (release version 1.0.21)
 
@@ -38,6 +38,6 @@
 
 [*] 19. pvf mode
 
-[.] 20. replay in vs mode
+[v] 20. replay in vs mode (release version 1.0.66)
 
 [.] 21. match score
