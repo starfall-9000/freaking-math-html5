@@ -54,6 +54,12 @@ function matchPlayer() {
 
 function choosePlayer() {
   return new Promise(resolve => setTimeout(resolve, 1000))
+    .then(() => challengePlayer())
+    .catch(error => {
+      showAlertPopup('Your friend cannot play now...')
+      setTimeout(() => hideAlertPopup(), 3000)
+      throw error
+    })
 }
 
 function syncScoreData() {
@@ -111,6 +117,27 @@ function getOpponentInfo(type = 'SYNC_PLAYER') {
           return getOpponentInfo(type)
         else return data
       }
+    })
+}
+
+function challengePlayer() {
+  return new Promise(resolve => setTimeout(resolve, 100))
+    .then(() => {
+      return [mockPlayerInfo, mockOpponentInfo]
+    })
+    .then(listPlayers => {
+      const filterList = listPlayers.filter(
+        player => player.playerID !== mockPlayerInfo.playerID
+      )
+      return filterList[0]
+    })
+    .then(opponentInfo => {
+      const { contextID, playerID } = opponentInfo
+      const body = { contextID, opponentID: playerID }
+      return post('/v1/context/challenge', body)
+    })
+    .then(response => {
+      if (!handleResponse(response)) throw 'Cannot Challenge Player'
     })
 }
 
