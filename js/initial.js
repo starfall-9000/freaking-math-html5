@@ -3,6 +3,7 @@ $(document).ready(function() {
   initGame()
   syncPlayer()
   getPlayerLeaderboard()
+  subscribeGame()
 })
 
 function initGame() {

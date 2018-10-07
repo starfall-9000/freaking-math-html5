@@ -105,3 +105,13 @@ $(document).on('click', '#btn-quit-game', function() {
 $(document).on('click', '#btn-quit-game-back', function() {
   hideQuitGamePopup()
 })
+
+// challenge action
+
+$(document).on('click', '#btn-challenge-game', function() {
+  hideQuitGamePopup()
+})
+
+$(document).on('click', '#btn-challenge-back', function() {
+  hideQuitGamePopup()
+})

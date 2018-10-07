@@ -35,6 +35,7 @@ function hideAllPopup() {
   $('#game-over-popup').css('display', 'none')
   $('#quit-game-popup').css('display', 'none')
   $('#alert-popup').css('display', 'none')
+  $('#challenge-popup').css('display', 'none')
 }
 
 function showQuitGamePopup() {
@@ -52,6 +53,10 @@ function showAlertPopup(msg) {
 
 function hideAlertPopup() {
   showScreen('.home-screen')
+}
+
+function showChallengePopup() {
+  showPopup('#challenge-popup')
 }
 
 // home view controller

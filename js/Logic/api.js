@@ -162,3 +162,24 @@ function updateGameStatus(isReady = true) {
     if (!handleResponse(response)) throw 'Cannot Update Game Status'
   })
 }
+
+function subscribeGame() {
+  const { contextID, playerID } = mockPlayerInfo
+  const params = { contextID, playerID }
+
+  return get('/v1/player/subscribe', params)
+    .then(response => {
+      const data = handleResponse(response)
+      if (!data) throw 'Cannot Subscribe Game'
+      return data
+    })
+    .then(data => {
+      if (data.event === 'none') {
+      } else if (data.event === 'challenge') {
+        notifyChallenge()
+      }
+
+      return new Promise(resolve => setTimeout(resolve, 3000))
+    })
+    .then(() => subscribeGame())
+}

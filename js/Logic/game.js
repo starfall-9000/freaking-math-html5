@@ -3,20 +3,21 @@ var trueResult = 0
 var showResult = 0
 var turnBestScore = 0 // save best score in this game turn
 var gameMode = 'single' // single | pvp | pvf
-var gameReady = false
+var gameStatus = 'FREE' // FREE | PLAYED | CHALLENGED | WAITING
 
 function playGame(type) {
   gameMode = type ? type : gameMode
-  gameReady = true
+  gameStatus = 'PLAYED'
   initGame()
   countDown(200)
 }
 
-var gameReady = false
 function syncGamePlay(gameMode) {
-  gameReady = false
+  gameStatus = 'WAITING'
   setTimeout(() => {
-    if (!gameReady) showAlertPopup('Your opponent seem not to be ready...')
+    if (gameStatus === 'WAITING') {
+      showAlertPopup('Your opponent seem not to be ready...')
+    }
   }, 7000)
   setTimeoutGetOpponentInfo()
 
@@ -34,6 +35,18 @@ function syncGamePlay(gameMode) {
       showScreen('.main-screen')
       playGame(gameMode)
     })
+    .catch(error => {
+      gameStatus = 'FREE'
+      hideAlertPopup()
+      throw error
+    })
+}
+
+function notifyChallenge() {
+  if (gameStatus === 'FREE') {
+    gameStatus = 'CHALLENGED'
+    showChallengePopup()
+  }
 }
 
 function randNum() {
