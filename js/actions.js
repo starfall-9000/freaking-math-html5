@@ -109,7 +109,16 @@ $(document).on('click', '#btn-quit-game-back', function() {
 // challenge action
 
 $(document).on('click', '#btn-challenge-game', function() {
+  rejectChallenge()
   hideChallengePopup()
+  showScreen('.waiting-screen')
+
+  switchContext()
+    .then(() => syncGamePlay('pvf'))
+    .catch(error => {
+      console.log('Error when find a match with your friend: ' + error)
+      showScreen('.home-screen')
+    })
 })
 
 $(document).on('click', '#btn-challenge-back', function() {
