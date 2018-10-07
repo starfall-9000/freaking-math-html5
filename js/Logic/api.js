@@ -141,6 +141,20 @@ function challengePlayer() {
     })
 }
 
+function rejectChallenge() {
+  const contextRejected = challengeID
+  const { playerID } = mockPlayerInfo
+  const body = { playerID, contextRejected }
+
+  return post('/v1/context/challenge/reject', body)
+    .then(response => {
+      if (!handleResponse(response)) throw 'Cannot Reject Challenge'
+    })
+    .catch(error => {
+      console.log('Error when reject challenge: ' + error)
+    })
+}
+
 function syncPlayer() {
   updatePlayerAvatar(mockPlayerInfo)
 
@@ -163,6 +177,7 @@ function updateGameStatus(isReady = true) {
   })
 }
 
+var challengeID = '0'
 function subscribeGame() {
   const { contextID, playerID } = mockPlayerInfo
   const params = { contextID, playerID }
@@ -176,6 +191,7 @@ function subscribeGame() {
     .then(data => {
       if (data.event === 'none') {
       } else if (data.event === 'challenge') {
+        challengeID = data.challengeContext
         notifyChallenge()
       }
 

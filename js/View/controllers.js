@@ -59,6 +59,10 @@ function showChallengePopup() {
   showPopup('#challenge-popup')
 }
 
+function hideChallengePopup() {
+  showScreen('.home-screen')
+}
+
 // home view controller
 
 function updatePlayerAvatar(playerInfo) {

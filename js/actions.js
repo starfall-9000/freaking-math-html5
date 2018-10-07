@@ -109,9 +109,11 @@ $(document).on('click', '#btn-quit-game-back', function() {
 // challenge action
 
 $(document).on('click', '#btn-challenge-game', function() {
-  hideQuitGamePopup()
+  hideChallengePopup()
 })
 
 $(document).on('click', '#btn-challenge-back', function() {
-  hideQuitGamePopup()
+  rejectChallenge()
+  gameMode = 'FREE'
+  hideChallengePopup()
 })
