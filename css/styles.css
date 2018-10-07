@@ -101,6 +101,21 @@ body {
   display: none;
 }
 
+#flash-none {
+}
+
+#flash-red {
+  background: rgb(252, 82, 30, 0.7);
+  -webkit-animation: flash linear 1s infinite;
+  animation: flash linear 1s infinite;
+}
+
+#flash-green {
+  background: rgba(81, 196, 60);
+  -webkit-animation: flash linear 1s infinite;
+  animation: flash linear 1s infinite;
+}
+
 .time {
   position: absolute;
   height: 6px;

@@ -83,10 +83,10 @@ function showRandowNumber(operator, num1, num2, showResult) {
   $('.result').html(showResult)
 }
 
-function countDown(time = 150) {
+function countDown(time = 100) {
   // set time out for per question
   const width = parseInt($('#time').css('width'))
-  const distance = width / 10
+  const distance = width / 200
   var countDownInterval = setInterval(function() {
     if (parseInt($('#time').css('width')) == 0) {
       clearInterval(countDownInterval)
@@ -100,7 +100,7 @@ function countDown(time = 150) {
 function updateScore() {
   var score = parseInt($('#score').text())
   $('#score').text(score + 1)
-  $('#time').css('right', '0')
+  // $('#time').css('right', '0')
 }
 
 function handleGameOver() {

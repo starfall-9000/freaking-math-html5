@@ -9,7 +9,7 @@ function playGame(type) {
   gameMode = type ? type : gameMode
   gameStatus = 'PLAYED'
   initGame()
-  countDown(200)
+  countDown()
 }
 
 function syncGamePlay(gameMode) {
@@ -51,19 +51,25 @@ function notifyChallenge() {
 
 function randNum() {
   // random math: 2 number, operator and showResult
-  // trueResult - 1 <= showResult <= trueResult + 1
-  var num1 = Math.floor(Math.random() * 20 + 1)
-  var num2 = Math.floor(Math.random() * 20 + 1)
+  // trueResult - num3 <= showResult <= trueResult + num3
+
+  const score = parseInt($('#score').text())
+  const range = score < 5 ? 9 : 20 // if score < 5, easier logic, with 1 number
+
+  var num1 = Math.floor(Math.random() * range + 1)
+  var num2 = Math.floor(Math.random() * range + 1)
+  const num3 = Math.floor(Math.random() * 5 + 1)
+
   switch (operators[Math.floor(Math.random() * operators.length)]) {
     case '+':
       operator = '+'
       trueResult = num1 + num2
-      showResult = trueResult - Math.floor(Math.random() * 2)
+      showResult = trueResult - Math.floor(Math.random() * 2) * num3
       break
     case '-':
       operator = '-'
       trueResult = num1 - num2
-      showResult = trueResult + Math.floor(Math.random() * 2)
+      showResult = trueResult + Math.floor(Math.random() * 2) * num3
       break
   }
 
@@ -78,11 +84,19 @@ function check(arg) {
     (arg != 'true' && trueResult != showResult)
   ) {
     updateScore()
-    countDown()
     randNum()
+
+    $('.main-screen').attr('id', 'flash-green')
+    setTimeout(() => {
+      $('.main-screen').attr('id', 'flash-none')
+    }, 70)
   } else {
-    handleGameOver()
-    updateTurnBestScore()
+    randNum()
+
+    $('.main-screen').attr('id', 'flash-red')
+    setTimeout(() => {
+      $('.main-screen').attr('id', 'flash-none')
+    }, 70)
   }
 }
 

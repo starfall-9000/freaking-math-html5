@@ -36,7 +36,7 @@
 
 [.] 18. easy game logics
 
-[*] 19. pvf mode
+[v] 19. pvf mode (release version 1.0.75)
 
 [v] 20. replay in vs mode (release version 1.0.66)
 

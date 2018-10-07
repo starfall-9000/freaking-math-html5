@@ -57,7 +57,7 @@ $(document).on('click', '.btn-result', function() {
 
 $(document).on('click', '#btn-pop-up-replay', function() {
   if (gameMode === 'single') {
-    playGame('singles')
+    playGame('single')
   } else {
     showScreen('.pre-match-screen')
 
