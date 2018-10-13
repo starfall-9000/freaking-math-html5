@@ -54,11 +54,40 @@ function matchPlayer() {
 
 function choosePlayer() {
   return new Promise(resolve => setTimeout(resolve, 1000))
-    .then(() => challengePlayer())
+    .then(() => getPlayersAsync())
+    .then(opponentInfo => getChallengeInfo(opponentInfo))
+    .then(data => {
+      const { status } = data
+
+      if (!status || status === 'none' || status === 'rejected') {
+        return data
+      } else {
+        throw status
+      }
+    })
+    .then(data => challengePlayer(data))
     .catch(error => {
-      showAlertPopup('Your friend cannot play now...')
-      setTimeout(() => hideAlertPopup(), 3000)
-      throw error
+      setTimeout(() => {
+        if (error === 'waited') {
+          showAutoHideAlert('You have already challenged this player!')
+        } else {
+          showAutoHideAlert('Your friend cannot play now...')
+        }
+      }, 1000)
+      throw 'Cannot play with this user, challenge status = ' + error
+    })
+}
+
+function getPlayersAsync() {
+  return new Promise(resolve => setTimeout(resolve, 100))
+    .then(() => {
+      return [mockPlayerInfo, mockOpponentInfo]
+    })
+    .then(listPlayers => {
+      const filterList = listPlayers.filter(
+        player => player.playerID !== mockPlayerInfo.playerID
+      )
+      return filterList[0]
     })
 }
 
@@ -124,25 +153,13 @@ function getOpponentInfo(type = 'SYNC_PLAYER') {
     })
 }
 
-function challengePlayer() {
-  return new Promise(resolve => setTimeout(resolve, 100))
-    .then(() => {
-      return [mockPlayerInfo, mockOpponentInfo]
-    })
-    .then(listPlayers => {
-      const filterList = listPlayers.filter(
-        player => player.playerID !== mockPlayerInfo.playerID
-      )
-      return filterList[0]
-    })
-    .then(opponentInfo => {
-      const { contextID, playerID } = opponentInfo
-      const body = { contextID, opponentID: playerID }
-      return post('/v1/context/challenge', body)
-    })
-    .then(response => {
-      if (!handleResponse(response)) throw 'Cannot Challenge Player'
-    })
+function challengePlayer(challengeInfo) {
+  const { playerId, opponentId } = challengeInfo
+
+  const body = { playerID: playerId, opponentID: opponentId }
+  return post('/v2/context/challenge', body).then(response => {
+    if (!handleResponse(response)) throw 'Cannot Challenge Player'
+  })
 }
 
 function rejectChallenge() {
@@ -202,4 +219,17 @@ function subscribeGame() {
       return new Promise(resolve => setTimeout(resolve, 3000))
     })
     .then(() => subscribeGame())
+}
+
+function getChallengeInfo(opponentInfo) {
+  const { playerID } = mockPlayerInfo
+  const opponentID = opponentInfo.playerID
+  const params = { playerID, opponentID }
+
+  return get('/v2/context/challenge/info', params).then(response => {
+    const data = handleResponse(response)
+    if (!data) throw 'Cannot Get Challenge Info'
+    if (data === true) return { playerID, opponentID, status: 'none' }
+    return data
+  })
 }

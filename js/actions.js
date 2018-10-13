@@ -15,7 +15,7 @@ $(document).on('click', '#btn-home-friend', function() {
   showScreen('.waiting-screen')
 
   choosePlayer()
-    .then(() => syncGamePlay('pvf'))
+    .then(() => syncGamePlayPVF('pvf'))
     .catch(error => {
       console.log('Error when find a match with your friend: ' + error)
       showScreen('.home-screen')
@@ -71,10 +71,12 @@ $(document).on('click', '#btn-pop-up-replay', function() {
 })
 
 $(document).on('click', '#btn-pop-up-go-home', function() {
+  gameStatus = 'FREE'
   showScreen('.home-screen')
 })
 
 $(document).on('click', '.btn-back', function() {
+  gameStatus = 'FREE'
   showScreen('.home-screen')
 })
 
@@ -103,6 +105,7 @@ $(document).on('click', '#btn-quit-game', function() {
 })
 
 $(document).on('click', '#btn-quit-game-back', function() {
+  gameStatus = 'FREE'
   hideQuitGamePopup()
 })
 
@@ -114,7 +117,7 @@ $(document).on('click', '#btn-challenge-game', function() {
   showScreen('.waiting-screen')
 
   switchContext()
-    .then(() => syncGamePlay('pvf'))
+    .then(() => syncGamePlayPVF('pvf'))
     .catch(error => {
       console.log('Error when find a match with your friend: ' + error)
       showScreen('.home-screen')
@@ -123,6 +126,6 @@ $(document).on('click', '#btn-challenge-game', function() {
 
 $(document).on('click', '#btn-challenge-back', function() {
   rejectChallenge()
-  gameMode = 'FREE'
+  gameStatus = 'FREE'
   hideChallengePopup()
 })

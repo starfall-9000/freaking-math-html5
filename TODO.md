@@ -18,7 +18,7 @@
 
 [v] 9. add avatar in home-screen (release version 1.0.29)
 
-[*] 10. 20s mode
+[v] 10. 20s mode (release version 1.0.76)
 
 [.] 11. add app icon, splash image
 
@@ -34,10 +34,14 @@
 
 [.] 17. make week-tab leaderboard
 
-[.] 18. easy game logics
+[v] 18. easy game logics (release version 1.0.76)
 
 [v] 19. pvf mode (release version 1.0.75)
 
 [v] 20. replay in vs mode (release version 1.0.66)
 
 [.] 21. match score
+
+[.] 22. improve backend
+
+[.] 23. module js code

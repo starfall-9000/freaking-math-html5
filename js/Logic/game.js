@@ -42,6 +42,21 @@ function syncGamePlay(gameMode) {
     })
 }
 
+function syncGamePlayPVF(gameMode = 'pvf') {
+  gameStatus = 'WAITING'
+
+  return new Promise(resolve => setTimeout(resolve, 1000))
+    .then(() => {
+      showScreen('.main-screen')
+      playGame(gameMode)
+    })
+    .catch(error => {
+      gameStatus = 'FREE'
+      hideAlertPopup()
+      throw error
+    })
+}
+
 function notifyChallenge() {
   if (gameStatus === 'FREE') {
     gameStatus = 'CHALLENGED'

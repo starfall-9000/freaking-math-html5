@@ -51,6 +51,13 @@ function showAlertPopup(msg) {
   $('.alert-message').text(msg)
 }
 
+function showAutoHideAlert(msg) {
+  showPopup('#alert-popup')
+  $('.alert-message').text(msg)
+
+  setTimeout(hideAlertPopup, 3000)
+}
+
 function hideAlertPopup() {
   showScreen('.home-screen')
 }
@@ -114,6 +121,8 @@ function handleGameOver() {
 
     if (gameMode === 'single') {
       handleSingleModeGameOver()
+    } else if (gameMode === 'pvf') {
+      handlePvfModeGameOver()
     } else {
       handleVsModeGameOver()
       syncScoreData()
@@ -123,6 +132,7 @@ function handleGameOver() {
 
 function handleSingleModeGameOver() {
   // show new score and best score for single mode
+  $('.best-score-result').css('display', 'flex')
   $('#score-new-text').text('New')
   $('#score-best-text').text('Best')
   $('#best-score').css('display', 'block')
@@ -144,6 +154,7 @@ function handleSingleModeGameOver() {
 
 function handleVsModeGameOver() {
   // show current score and opponent score for vs mode
+  $('.best-score-result').css('display', 'flex')
   $('#score-new-text').text('You')
   $('#score-best-text').text('Waiting...')
   $('#best-score').css('display', 'none')
@@ -179,6 +190,13 @@ function handleSyncVsModeGameOver(opponentInfo) {
   }
 
   $('.pop-up-button-view').css('display', 'flex')
+}
+
+function handlePvfModeGameOver() {
+  // show current score and opponent score for vs mode
+  $('#score-new-text').text('Score')
+  $('.best-score-result').css('display', 'none')
+  $('.ribbon').attr('src', './images/ribbon-game-over.png')
 }
 
 function updateBestScore(playerInfo) {
