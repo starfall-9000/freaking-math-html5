@@ -233,3 +233,33 @@ function getChallengeInfo(opponentInfo) {
     return data
   })
 }
+
+function syncChallengeData() {
+  getPlayersAsync()
+    .then(opponentInfo => getChallengeInfo(opponentInfo))
+    .then(data => {
+      if (data.opponentScore !== undefined && data.opponentScore !== null) {
+        handleSyncVsModeGameOver({
+          score: data.opponentScore,
+          playerName: data.opponentName
+        })
+      }
+
+      return data
+    })
+    .then(challengeInfo => updateChallengeInfo(challengeInfo))
+    .catch(error => console.error(error))
+}
+
+function updateChallengeInfo(challengeInfo) {
+  const playerID = challengeInfo.playerId
+  const opponentID = challengeInfo.opponentId
+  const score = parseInt($('#score').text())
+  const opponentScore = challengeInfo.opponentScore
+
+  const body = { playerID, opponentID, score, opponentScore }
+
+  return post('/v2/context/challenge/end', body).then(response => {
+    if (!handleResponse(response)) throw 'Cannot Update Game Status'
+  })
+}

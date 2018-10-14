@@ -123,6 +123,7 @@ function handleGameOver() {
       handleSingleModeGameOver()
     } else if (gameMode === 'pvf') {
       handlePvfModeGameOver()
+      syncChallengeData()
     } else {
       handleVsModeGameOver()
       syncScoreData()
@@ -175,6 +176,7 @@ function handleSyncVsModeGameOver(opponentInfo) {
   if (opponentInfo.score !== null && opponentInfo.score !== undefined) {
     const opponentScore = opponentInfo.score
     const yourScore = parseInt($('#new-score').text())
+    $('.best-score-result').css('display', 'flex')
     $('#score-best-text').text(opponentInfo.playerName)
     $('#opponent-score').text(opponentScore)
     // show yellow color for highest score
