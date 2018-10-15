@@ -1,4 +1,5 @@
 const BASE_URL = 'https://whispering-plateau-56641.herokuapp.com'
+var saveChallengeInfo = {}
 
 function url(path) {
   return BASE_URL + path
@@ -163,11 +164,11 @@ function challengePlayer(challengeInfo) {
 }
 
 function rejectChallenge() {
-  const contextRejected = challengeID
+  const { opponentID } = saveChallengeInfo
   const { playerID } = mockPlayerInfo
-  const body = { playerID, contextRejected }
+  const body = { playerID, opponentID }
 
-  return post('/v1/context/challenge/reject', body)
+  return post('/v2/context/challenge/reject', body)
     .then(response => {
       if (!handleResponse(response)) throw 'Cannot Reject Challenge'
     })
@@ -198,12 +199,17 @@ function updateGameStatus(isReady = true) {
   })
 }
 
-var challengeID = '0'
 function subscribeGame() {
   const { contextID, playerID } = mockPlayerInfo
   const params = { contextID, playerID }
 
-  return get('/v1/player/subscribe', params)
+  if (gameStatus !== 'FREE') {
+    return new Promise(resolve => setTimeout(resolve, 3000)).then(() =>
+      subscribeGame()
+    )
+  }
+
+  return get('/v2/player/subscribe', params)
     .then(response => {
       const data = handleResponse(response)
       if (!data) throw 'Cannot Subscribe Game'
@@ -212,7 +218,7 @@ function subscribeGame() {
     .then(data => {
       if (data.event === 'none') {
       } else if (data.event === 'challenge') {
-        challengeID = data.challengeContext
+        saveChallengeInfo = data
         notifyChallenge()
       }
 

@@ -44,17 +44,11 @@ function syncGamePlay(gameMode) {
 
 function syncGamePlayPVF(gameMode = 'pvf') {
   gameStatus = 'WAITING'
+  showScreen('.main-screen')
+  playGame(gameMode)
 
-  return new Promise(resolve => setTimeout(resolve, 1000))
-    .then(() => {
-      showScreen('.main-screen')
-      playGame(gameMode)
-    })
-    .catch(error => {
-      gameStatus = 'FREE'
-      hideAlertPopup()
-      throw error
-    })
+  // gameStatus = 'FREE'
+  // hideAlertPopup()
 }
 
 function notifyChallenge() {

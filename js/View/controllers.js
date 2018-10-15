@@ -198,6 +198,9 @@ function handlePvfModeGameOver() {
   // show current score and opponent score for vs mode
   $('#score-new-text').text('Score')
   $('.best-score-result').css('display', 'none')
+  $('#best-score').css('display', 'none')
+  $('#opponent-score').css('display', 'block')
+  $('#opponent-score').text('')
   $('.ribbon').attr('src', './images/ribbon-game-over.png')
 }
 
