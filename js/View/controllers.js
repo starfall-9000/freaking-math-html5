@@ -123,7 +123,7 @@ function handleGameOver() {
       handleSingleModeGameOver()
     } else if (gameMode === 'pvf') {
       handlePvfModeGameOver()
-      syncChallengeData()
+      // syncChallengeData()
     } else {
       handleVsModeGameOver()
       syncScoreData()
@@ -134,10 +134,12 @@ function handleGameOver() {
 function handleSingleModeGameOver() {
   // show new score and best score for single mode
   $('.best-score-result').css('display', 'flex')
+  $('.pvf-challenge-view').css('display', 'none')
   $('#score-new-text').text('New')
   $('#score-best-text').text('Best')
   $('#best-score').css('display', 'block')
   $('#opponent-score').css('display', 'none')
+  $('.pop-up-button-view').css('display', 'flex')
 
   const score = parseInt($('#score').text())
   const bestScore = parseInt($('#best-score').text())
@@ -156,6 +158,7 @@ function handleSingleModeGameOver() {
 function handleVsModeGameOver() {
   // show current score and opponent score for vs mode
   $('.best-score-result').css('display', 'flex')
+  $('.pvf-challenge-view').css('display', 'none')
   $('#score-new-text').text('You')
   $('#score-best-text').text('Waiting...')
   $('#best-score').css('display', 'none')
@@ -198,10 +201,12 @@ function handlePvfModeGameOver() {
   // show current score and opponent score for vs mode
   $('#score-new-text').text('Score')
   $('.best-score-result').css('display', 'none')
+  $('.pvf-challenge-view').css('display', 'flex')
   $('#best-score').css('display', 'none')
   $('#opponent-score').css('display', 'block')
   $('#opponent-score').text('')
   $('.ribbon').attr('src', './images/ribbon-game-over.png')
+  $('.pop-up-button-view').css('display', 'none')
 }
 
 function updateBestScore(playerInfo) {

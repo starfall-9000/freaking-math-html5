@@ -55,6 +55,17 @@ function matchPlayer() {
 
 function choosePlayer() {
   return new Promise(resolve => setTimeout(resolve, 1000))
+    .then(() => console.log('need to call challenge api'))
+    .catch(error => {
+      setTimeout(() => {
+        showAutoHideAlert('Your friend cannot play now...')
+      }, 1000)
+      throw 'Cannot play with this user, challenge status = ' + error
+    })
+}
+
+function backupChoosePlayer() {
+  return new Promise(resolve => setTimeout(resolve, 1000))
     .then(() => getPlayersAsync())
     .then(opponentInfo => getChallengeInfo(opponentInfo))
     .then(data => {
@@ -268,4 +279,48 @@ function updateChallengeInfo(challengeInfo) {
   return post('/v2/context/challenge/end', body).then(response => {
     if (!handleResponse(response)) throw 'Cannot Update Game Status'
   })
+}
+
+function shareChallenge() {
+  const { contextID, playerID, playerName, avatar } = mockPlayerInfo
+  const score = parseInt($('#score').text())
+  convertBase64Image('./images/logo.png')
+    .then(base64Picture => {
+      const updateContent = {
+        action: 'CUSTOM',
+        cta: 'Got Challenge',
+        image: base64Picture,
+        text: {
+          default: playerName + ' just challenged you!'
+        },
+        template: 'challenge_mode',
+        data: { contextID, playerID, playerName, avatar, score },
+        strategy: 'IMMEDIATE_CLEAR',
+        notification: 'PUSH'
+      }
+
+      console.log(updateContent)
+      console.log('need to call api syncChallengeData')
+      showScreen('.home-screen')
+    })
+    .catch(error => console.error(error))
+}
+
+function convertBase64Image(imagePath) {
+  return new Promise((resolve, reject) => {
+    var xhr = new XMLHttpRequest()
+    xhr.open('GET', imagePath, true)
+    xhr.responseType = 'blob'
+    xhr.send()
+    xhr.onload = event => resolve(xhr, event)
+  })
+    .then((xhr, event) => {
+      return new Promise((resolve, reject) => {
+        var reader = new FileReader()
+        var file = xhr.response
+        reader.readAsDataURL(file)
+        reader.onload = event => resolve(event)
+      })
+    })
+    .then(event => event.target.result)
 }

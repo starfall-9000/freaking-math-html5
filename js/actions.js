@@ -122,3 +122,7 @@ $(document).on('click', '#btn-challenge-back', function() {
   gameStatus = 'FREE'
   hideChallengePopup()
 })
+
+$(document).on('click', '#btn-share-challenge', function() {
+  shareChallenge()
+})
