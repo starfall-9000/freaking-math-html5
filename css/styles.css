@@ -263,6 +263,7 @@ body {
   background: #015d66;
   color: #ffffff;
   line-height: 54px;
+  min-height: 54px;
   margin-bottom: 10px;
   border-radius: 8px;
   display: flex;

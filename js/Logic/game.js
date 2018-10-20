@@ -119,3 +119,14 @@ function updateTurnBestScore() {
     updateLeaderboard()
   }
 }
+
+function checkIsChallenge() {
+  const contextType = 'THREAD'
+  const { playerID } = mockPlayerInfo
+  const opponentID = mockOpponentInfo.playerID
+
+  if (contextType === 'THREAD' && playerID !== opponentID) {
+    showScreen('.main-screen')
+    playGame('fvp')
+  }
+}

@@ -252,6 +252,14 @@ function getChallengeInfo(opponentInfo) {
 }
 
 function syncChallengeData() {
+  const { score, playerName } = mockOpponentInfo
+  const opponentInfo = { score, playerName }
+  handleSyncVsModeGameOver(opponentInfo)
+
+  shareChallenge(mockOpponentInfo)
+}
+
+function backupSyncChallengeData() {
   getPlayersAsync()
     .then(opponentInfo => getChallengeInfo(opponentInfo))
     .then(data => {
@@ -281,9 +289,11 @@ function updateChallengeInfo(challengeInfo) {
   })
 }
 
-function shareChallenge() {
+function shareChallenge(opponentInfo) {
   const { contextID, playerID, playerName, avatar } = mockPlayerInfo
   const score = parseInt($('#score').text())
+  const msg = getChallengeMsg(opponentInfo)
+
   convertBase64Image('./images/logo.png')
     .then(base64Picture => {
       const updateContent = {
@@ -291,7 +301,7 @@ function shareChallenge() {
         cta: 'Got Challenge',
         image: base64Picture,
         text: {
-          default: playerName + ' just challenged you!'
+          default: msg
         },
         template: 'challenge_mode',
         data: { contextID, playerID, playerName, avatar, score },
@@ -304,6 +314,30 @@ function shareChallenge() {
       showScreen('.home-screen')
     })
     .catch(error => console.error(error))
+}
+
+function getChallengeMsg(opponentInfo) {
+  const { playerName } = mockPlayerInfo
+  const score = parseInt($('#score').text())
+
+  let msg = playerName + ' just challenged you!'
+  if (opponentInfo) {
+    const opponentName = opponentInfo.playerName
+    const opponentScore = opponentInfo.score
+
+    const winner = score > opponentScore ? playerName : opponentName
+    const loser = score > opponentScore ? opponentName : playerName
+    const winnerScore = score > opponentScore ? score : opponentScore
+    const loserScore = score > opponentScore ? opponentScore : score
+    const result = winnerScore + ' - ' + loserScore
+    msg = winner + ' beat ' + loser + ': ' + result
+
+    if (score === opponentScore) {
+      msg = 'You got a draw match: ' + score + ' - ' + score
+    }
+  }
+
+  return msg
 }
 
 function convertBase64Image(imagePath) {

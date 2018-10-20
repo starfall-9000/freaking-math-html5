@@ -3,7 +3,8 @@ $(document).ready(function() {
   initGame()
   syncPlayer()
   getPlayerLeaderboard()
-  subscribeGame()
+  // subscribeGame()
+  checkIsChallenge()
 })
 
 function initGame() {
