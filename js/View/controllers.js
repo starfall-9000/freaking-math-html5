@@ -127,7 +127,6 @@ function handleGameOver() {
     } else if (gameMode === 'fvp') {
       handleVsModeGameOver()
       syncChallengeData()
-      gameMode = 'pvf'
     } else {
       handleVsModeGameOver()
       syncScoreData()

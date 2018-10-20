@@ -58,6 +58,8 @@ $(document).on('click', '.btn-result', function() {
 $(document).on('click', '#btn-pop-up-replay', function() {
   if (gameMode === 'single') {
     playGame('single')
+  } else if (gameMode === 'fvp') {
+    playGame('pvf')
   } else {
     showScreen('.pre-match-screen')
 
