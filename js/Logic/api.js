@@ -49,15 +49,18 @@ function getLeaderboard() {
 }
 
 function updateLeaderboard() {
-  const score = parseInt($('#score').text())
-  var contextId = FBInstant.context.getID()
+  if (gameEnv === 'DEV') getPlayerLeaderboard()
+  else {
+    const score = parseInt($('#score').text())
+    var contextId = FBInstant.context.getID()
 
-  FBInstant.getLeaderboardAsync('freaking_math_score')
-    .then(leaderboard => {
-      return leaderboard.setScoreAsync(score)
-    })
-    .then(() => getPlayerLeaderboard())
-    .catch(error => console.error(error))
+    FBInstant.getLeaderboardAsync('freaking_math_score')
+      .then(leaderboard => {
+        return leaderboard.setScoreAsync(score)
+      })
+      .then(() => getPlayerLeaderboard())
+      .catch(error => console.error(error))
+  }
 }
 
 function getPlayerLeaderboard() {
@@ -131,8 +134,10 @@ function getPlayersAsync() {
     if (gameEnv === 'DEV') resolve([mockPlayerInfo, mockOpponentInfo])
     else FBInstant.context.getPlayersAsync().then(resolve)
   }).then(listPlayers => {
+    const playerID =
+      gameEnv === 'DEV' ? mockPlayerInfo.playerID : FBInstant.player.getID()
     const filterList = listPlayers.filter(
-      player => player.playerID !== mockPlayerInfo.playerID
+      player => player.playerID !== playerID
     )
     return filterList[0]
   })
@@ -398,10 +403,16 @@ function shareChallenge(opponentInfo) {
         notification: 'PUSH'
       }
 
-      return FBInstant.updateAsync(updateContent)
+      console.log('need to call api syncChallengeData')
+      if (gameEnv === 'DEV') {
+        console.log(updateContent)
+      } else {
+        return FBInstant.updateAsync(updateContent)
+      }
     })
     .then(() => {
-      if (!opponentInfo) FBInstant.quit()
+      if (gameEnv === 'DEV') showScreen('.home-screen')
+      else if (!opponentInfo) FBInstant.quit()
     })
     .catch(error => console.error(error))
 }
