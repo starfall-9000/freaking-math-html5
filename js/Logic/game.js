@@ -4,6 +4,8 @@ var showResult = 0
 var turnBestScore = 0 // save best score in this game turn
 var gameMode = 'single' // single | pvp | pvf
 var gameStatus = 'FREE' // FREE | PLAYED | CHALLENGED | WAITING
+var gameEnv = 'DEV'
+// need to setup enviroment
 
 function playGame(type) {
   gameMode = type ? type : gameMode
@@ -28,6 +30,7 @@ function syncGamePlay(gameMode) {
       hideAlertPopup()
       showScreen('.pre-match-screen')
       const currentInfo = mockPlayerInfo
+      // need to setup enviroment
       updatePreMatchInfo(currentInfo, opponentInfo)
     })
     .then(() => new Promise(resolve => setTimeout(resolve, 2000)))
@@ -122,6 +125,7 @@ function updateTurnBestScore() {
 
 function checkIsChallenge() {
   const contextType = 'THREAD'
+  // need to setup enviroment
   const { playerID } = mockPlayerInfo
   const opponentID = mockOpponentInfo.playerID
 

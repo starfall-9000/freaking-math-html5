@@ -39,6 +39,7 @@ function handleResponse(response) {
 
 function getLeaderboard() {
   renderListLeaderboard(mockLeaderboard)
+  // need to setup enviroment
 }
 
 function updateLeaderboard() {
@@ -47,64 +48,76 @@ function updateLeaderboard() {
 
 function getPlayerLeaderboard() {
   updateBestScore(mockPlayerInfo)
+  // need to setup enviroment
 }
 
 function matchPlayer() {
   return new Promise(resolve => setTimeout(resolve, 1000))
+  // need to setup enviroment
 }
 
 function choosePlayer() {
-  return new Promise(resolve => setTimeout(resolve, 1000))
-    .then(() => console.log('need to call challenge api'))
-    .catch(error => {
-      setTimeout(() => {
-        showAutoHideAlert('Your friend cannot play now...')
-      }, 1000)
-      throw 'Cannot play with this user, challenge status = ' + error
-    })
+  return (
+    new Promise(resolve => setTimeout(resolve, 1000))
+      // need to setup enviroment
+      .then(() => console.log('need to call challenge api'))
+      .catch(error => {
+        setTimeout(() => {
+          showAutoHideAlert('Your friend cannot play now...')
+        }, 1000)
+        throw 'Cannot play with this user, challenge status = ' + error
+      })
+  )
 }
 
 function backupChoosePlayer() {
-  return new Promise(resolve => setTimeout(resolve, 1000))
-    .then(() => getPlayersAsync())
-    .then(opponentInfo => getChallengeInfo(opponentInfo))
-    .then(data => {
-      const { status } = data
+  return (
+    new Promise(resolve => setTimeout(resolve, 1000))
+      // need to setup enviroment
+      .then(() => getPlayersAsync())
+      .then(opponentInfo => getChallengeInfo(opponentInfo))
+      .then(data => {
+        const { status } = data
 
-      if (!status || status === 'none' || status === 'rejected') {
-        return data
-      } else {
-        throw status
-      }
-    })
-    .then(data => challengePlayer(data))
-    .catch(error => {
-      setTimeout(() => {
-        if (error === 'waited') {
-          showAutoHideAlert('You have already challenged this player!')
+        if (!status || status === 'none' || status === 'rejected') {
+          return data
         } else {
-          showAutoHideAlert('Your friend cannot play now...')
+          throw status
         }
-      }, 1000)
-      throw 'Cannot play with this user, challenge status = ' + error
-    })
+      })
+      .then(data => challengePlayer(data))
+      .catch(error => {
+        setTimeout(() => {
+          if (error === 'waited') {
+            showAutoHideAlert('You have already challenged this player!')
+          } else {
+            showAutoHideAlert('Your friend cannot play now...')
+          }
+        }, 1000)
+        throw 'Cannot play with this user, challenge status = ' + error
+      })
+  )
 }
 
 function getPlayersAsync() {
-  return new Promise(resolve => setTimeout(resolve, 100))
-    .then(() => {
-      return [mockPlayerInfo, mockOpponentInfo]
-    })
-    .then(listPlayers => {
-      const filterList = listPlayers.filter(
-        player => player.playerID !== mockPlayerInfo.playerID
-      )
-      return filterList[0]
-    })
+  return (
+    new Promise(resolve => setTimeout(resolve, 100))
+      // need to setup enviroment
+      .then(() => {
+        return [mockPlayerInfo, mockOpponentInfo]
+      })
+      .then(listPlayers => {
+        const filterList = listPlayers.filter(
+          player => player.playerID !== mockPlayerInfo.playerID
+        )
+        return filterList[0]
+      })
+  )
 }
 
 function switchContext() {
   return new Promise(resolve => setTimeout(resolve, 1000))
+  // need to setup enviroment
 }
 
 function syncScoreData() {
@@ -119,6 +132,7 @@ function syncScoreData() {
 function updatePlayerScore() {
   const score = parseInt($('#score').text())
   const { contextID, playerID } = mockPlayerInfo
+  // need to setup enviroment
   const body = { contextID, playerID, score }
 
   return post('/v1/context/end', body).then(response => {
@@ -137,6 +151,7 @@ function setTimeoutGetOpponentInfo() {
 function getOpponentInfo(type = 'SYNC_PLAYER') {
   // type = SYNC_PLAYER | SYNC_SCORE
   const { contextID, playerID } = mockPlayerInfo
+  // need to setup enviroment
   const params = { contextID, playerID }
 
   return get('/v1/context/opponent/info', params)
@@ -177,6 +192,7 @@ function challengePlayer(challengeInfo) {
 function rejectChallenge() {
   const { opponentID } = saveChallengeInfo
   const { playerID } = mockPlayerInfo
+  // need to setup enviroment
   const body = { playerID, opponentID }
 
   return post('/v2/context/challenge/reject', body)
@@ -190,6 +206,7 @@ function rejectChallenge() {
 
 function syncPlayer() {
   updatePlayerAvatar(mockPlayerInfo)
+  // need to setup enviroment
 
   const { playerID, playerName, avatar, bestScore } = mockPlayerInfo
   const body = { playerID, playerName, avatar, bestScore }
@@ -203,6 +220,7 @@ function syncPlayer() {
 
 function updateGameStatus(isReady = true) {
   const { contextID, playerID } = mockPlayerInfo
+  // need to setup enviroment
   const body = { contextID, playerID, isReady }
 
   return post('/v1/context/ready', body).then(response => {
@@ -212,6 +230,7 @@ function updateGameStatus(isReady = true) {
 
 function subscribeGame() {
   const { contextID, playerID } = mockPlayerInfo
+  // need to setup enviroment
   const params = { contextID, playerID }
 
   if (gameStatus !== 'FREE') {
@@ -240,6 +259,7 @@ function subscribeGame() {
 
 function getChallengeInfo(opponentInfo) {
   const { playerID } = mockPlayerInfo
+  // need to setup enviroment
   const opponentID = opponentInfo.playerID
   const params = { playerID, opponentID }
 
@@ -253,6 +273,7 @@ function getChallengeInfo(opponentInfo) {
 
 function syncChallengeData() {
   const { score, playerName } = mockOpponentInfo
+  // need to setup enviroment
   const opponentInfo = { score, playerName }
   handleSyncVsModeGameOver(opponentInfo)
 
@@ -291,6 +312,7 @@ function updateChallengeInfo(challengeInfo) {
 
 function shareChallenge(opponentInfo) {
   const { contextID, playerID, playerName, avatar } = mockPlayerInfo
+  // need to setup enviroment
   const score = parseInt($('#score').text())
   const msg = getChallengeMsg(opponentInfo)
 
@@ -318,6 +340,7 @@ function shareChallenge(opponentInfo) {
 
 function getChallengeMsg(opponentInfo) {
   const { playerName } = mockPlayerInfo
+  // need to setup enviroment
   const score = parseInt($('#score').text())
 
   let msg = playerName + ' just challenged you!'

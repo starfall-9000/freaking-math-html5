@@ -104,6 +104,7 @@ $(document).on('click', '.btn-lb-week', function() {
 
 $(document).on('click', '#btn-quit-game', function() {
   hideQuitGamePopup()
+  // need to setup enviroment
 })
 
 $(document).on('click', '#btn-quit-game-back', function() {
