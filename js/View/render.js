@@ -1,5 +1,20 @@
 function renderListLeaderboard(data) {
-  const list = data.map(item => renderLeaderboardItem(item)).join('')
+  let list = ''
+  if (gameEnv === 'DEV') {
+    list = data.map(item => renderLeaderboardItem(item)).join('')
+  } else {
+    list = data
+      .map((item, index) =>
+        renderLeaderboardItem({
+          rank: item.getRank() ? item.getRank() : index + 1,
+          icon: item.getPlayer().getPhoto(),
+          name: item.getPlayer().getName(),
+          score: item.getScore()
+        })
+      )
+      .join('')
+  }
+
   $('#lb-table').empty()
   $('#lb-table').append(list)
 }

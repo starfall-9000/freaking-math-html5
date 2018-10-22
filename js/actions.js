@@ -103,7 +103,11 @@ $(document).on('click', '.btn-lb-week', function() {
 // quit-game action
 
 $(document).on('click', '#btn-quit-game', function() {
-  hideQuitGamePopup()
+  if (gameEnv === 'DEV') {
+    hideQuitGamePopup()
+  } else {
+    FBInstant.quit()
+  }
 })
 
 $(document).on('click', '#btn-quit-game-back', function() {

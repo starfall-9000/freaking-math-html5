@@ -4,6 +4,8 @@ var showResult = 0
 var turnBestScore = 0 // save best score in this game turn
 var gameMode = 'single' // single | pvp | pvf
 var gameStatus = 'FREE' // FREE | PLAYED | CHALLENGED | WAITING
+var gameEnv = 'DEV'
+// need to setup enviroment
 
 function playGame(type) {
   gameMode = type ? type : gameMode
@@ -27,7 +29,16 @@ function syncGamePlay(gameMode) {
     .then(opponentInfo => {
       hideAlertPopup()
       showScreen('.pre-match-screen')
-      const currentInfo = mockPlayerInfo
+
+      let currentInfo = {}
+      if (gameEnv === 'DEV') {
+        currentInfo = mockPlayerInfo
+      } else {
+        currentInfo = {
+          playerName: FBInstant.player.getName(),
+          avatar: FBInstant.player.getPhoto()
+        }
+      }
       updatePreMatchInfo(currentInfo, opponentInfo)
     })
     .then(() => new Promise(resolve => setTimeout(resolve, 2000)))
@@ -121,9 +132,17 @@ function updateTurnBestScore() {
 }
 
 function checkIsChallenge() {
-  const contextType = 'THREAD'
-  const { playerID } = mockPlayerInfo
-  const opponentID = mockOpponentInfo.playerID
+  let contextType, playerID, opponentID
+  if (gameEnv === 'DEV') {
+    contextType = 'THREAD'
+    playerID = mockPlayerInfo.playerID
+    opponentID = mockPlayerInfo.playerID
+  } else {
+    contextType = FBInstant.context.getType()
+    playerID = FBInstant.player.getID()
+    opponentInfo = FBInstant.getEntryPointData()
+    opponentID = opponentInfo.playerID
+  }
 
   if (contextType === 'THREAD' && playerID !== opponentID) {
     showScreen('.main-screen')

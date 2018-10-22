@@ -501,7 +501,7 @@ body {
   font-size: 20px;
   color: #015d66;
   background-image: url('../images/btn-lb-background.png');
-  background-repeat: no-repeat;
+  background-repeat: round;
   background-size: contain;
   margin-bottom: 12px;
   padding-bottom: 6px;
