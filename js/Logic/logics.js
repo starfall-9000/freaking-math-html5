@@ -1,45 +1,38 @@
-var operators = ['+', '-']
-var trueResult = 0
-var showResult = 0
-var turnBestScore = 0 // save best score in this game turn
-var gameMode = 'single' // single | pvp | pvf
-var gameStatus = 'FREE' // FREE | PLAYED | CHALLENGED | WAITING
-var gameEnv = 'DEV'
 // need to setup enviroment
 
+function initGame() {
+  resetScore()
+  randNum()
+}
+
 function playGame(type) {
-  gameMode = type ? type : gameMode
-  gameStatus = 'PLAYED'
+  const game = Game.currentGame()
+  game.setConfig({ gameMode: type, gameStatus: 'PLAYED' })
   initGame()
   countDown()
 }
 
 function syncGamePlay(gameMode) {
-  gameStatus = 'WAITING'
+  const game = Game.currentGame()
+  game.setConfig({ gameStatus: 'WAITING' })
+
   setTimeout(() => {
-    if (gameStatus === 'WAITING') {
+    if (game.config.gameStatus === 'WAITING') {
       showAlertPopup('Your opponent seem not to be ready...')
     }
   }, 7000)
+
+  const player = Player.currentPlayer()
+  const opponent = Game.currentGame().player2
   setTimeoutGetOpponentInfo()
 
   return updateGameStatus(true)
     .then(() => new Promise(resolve => setTimeout(resolve, 1000)))
-    .then(() => getOpponentInfo('SYNC_PLAYER'))
-    .then(opponentInfo => {
-      hideAlertPopup()
+    .then(() => opponent.syncPlayerInfo('SYNC_PLAYER'))
+    .then(() => {
+      hideCurrentPopup()
       showScreen('.pre-match-screen')
-
-      let currentInfo = {}
-      if (gameEnv === 'DEV') {
-        currentInfo = mockPlayerInfo
-      } else {
-        currentInfo = {
-          playerName: FBInstant.player.getName(),
-          avatar: FBInstant.player.getPhoto()
-        }
-      }
-      updatePreMatchInfo(currentInfo, opponentInfo)
+      updatePreMatchInfo(player, opponent)
     })
     .then(() => new Promise(resolve => setTimeout(resolve, 2000)))
     .then(() => {
@@ -47,25 +40,29 @@ function syncGamePlay(gameMode) {
       playGame(gameMode)
     })
     .catch(error => {
-      gameStatus = 'FREE'
-      hideAlertPopup()
+      game.setConfig({ gameStatus: 'FREE' })
+      hideCurrentPopup()
       throw error
     })
 }
 
 function syncGamePlayPVF(gameMode = 'pvf') {
-  gameStatus = 'WAITING'
+  const game = Game.currentGame()
+  game.setConfig({ gameStatus: 'WAITING' })
   showScreen('.main-screen')
   playGame(gameMode)
 
   // gameStatus = 'FREE'
-  // hideAlertPopup()
+  // hideCurrentPopup()
 }
 
 function notifyChallenge() {
-  if (gameStatus === 'FREE') {
-    gameStatus = 'CHALLENGED'
-    showChallengePopup()
+  const game = Game.currentGame()
+  const { config } = game
+
+  if (config.gameStatus === 'FREE') {
+    game.setConfig({ gameStatus: 'CHALLENGED' })
+    showPopup()
   }
 }
 
@@ -76,11 +73,16 @@ function randNum() {
   const score = parseInt($('#score').text())
   const range = score < 5 ? 9 : 20 // if score < 5, easier logic, with 1 number
 
+  // random 3 number, num1 and num2 are operator, number 3 is diff from true result and show result
   var num1 = Math.floor(Math.random() * range + 1)
   var num2 = Math.floor(Math.random() * range + 1)
   const num3 = Math.floor(Math.random() * 5 + 1)
 
-  switch (operators[Math.floor(Math.random() * operators.length)]) {
+  switch (
+    // random a number in ["+", "-"]
+    // if score < 5, easier logic with "+" only
+    operators[Math.floor(Math.random() * operators.length) * (score > 5)]
+  ) {
     case '+':
       operator = '+'
       trueResult = num1 + num2
@@ -93,30 +95,30 @@ function randNum() {
       break
   }
 
+  // set all randome number to game config
+  const game = Game.currentGame()
+  game.setConfig({ operator, num1, num2, trueResult, showResult })
+
   // show random number to web
-  showRandowNumber(operator, num1, num2, showResult)
+  showRandowNumber(game)
 }
 
 function check(arg) {
+  const game = Game.currentGame()
+  const { trueResult, showResult } = game.config
   // check the result
   if (
     (arg == 'true' && trueResult == showResult) ||
     (arg != 'true' && trueResult != showResult)
   ) {
+    // right user's answer, update score in view and turn green flash
     updateScore()
     randNum()
-
-    $('.main-screen').attr('id', 'flash-green')
-    setTimeout(() => {
-      $('.main-screen').attr('id', 'flash-none')
-    }, 70)
+    turnFlash(true)
   } else {
+    // wrong user's answer, turn red flash
     randNum()
-
-    $('.main-screen').attr('id', 'flash-red')
-    setTimeout(() => {
-      $('.main-screen').attr('id', 'flash-none')
-    }, 70)
+    turnFlash(false)
   }
 }
 
@@ -124,25 +126,22 @@ function updateTurnBestScore() {
   // update best score in this game turn
   // update async leaderboard only when turn best score is new
   const score = parseInt($('#score').text())
+  const game = Game.currentGame()
+  const { turnBestScore } = game.config
 
   if (turnBestScore < score) {
-    turnBestScore = score
+    game.setConfig({ turnBestScore: score })
     updateLeaderboard()
   }
 }
 
 function checkIsChallenge() {
-  let contextType, playerID, opponentID
-  if (gameEnv === 'DEV') {
-    contextType = 'THREAD'
-    playerID = mockPlayerInfo.playerID
-    opponentID = mockPlayerInfo.playerID
-  } else {
-    contextType = FBInstant.context.getType()
-    playerID = FBInstant.player.getID()
-    opponentInfo = FBInstant.getEntryPointData()
-    opponentID = opponentInfo.playerID
-  }
+  const game = Game.currentGame()
+  const player = Player.currentPlayer()
+  const opponent = game.gameInfo.player2
+  const { contextType } = game.gameInfo
+  const { playerID } = player
+  const { opponentID } = opponent || {}
 
   if (contextType === 'THREAD' && playerID !== opponentID) {
     showScreen('.main-screen')

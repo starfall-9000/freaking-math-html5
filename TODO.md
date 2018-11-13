@@ -45,3 +45,5 @@
 [.] 22. improve backend
 
 [.] 23. module js code
+
+[.] 24. change to svg image

@@ -1,210 +1,230 @@
 <!DOCTYPE html>
 <html>
+  <head>
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+    <title>Freaking Math</title>
+    <meta name="robots" content="noindex, nofollow" />
+    <meta name="googlebot" content="noindex, nofollow" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
 
-<head>
-  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
-  <title>Freaking Math</title>
-  <meta name="robots" content="noindex, nofollow">
-  <meta name="googlebot" content="noindex, nofollow">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!--
+      + import file from folder or cdn
+      + *.js file in js folder, *.css file in css folder
+      + using jquery 3.3.1
+    -->
+    <script src="https://connect.facebook.net/en_US/fbinstant.6.2.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script type="text/javascript" src="./js/Model/Player.js"></script>
+    <script type="text/javascript" src="./js/Model/Game.js"></script>
+    <script type="text/javascript" src="./js/View/gameControllers.js"></script>
+    <script
+      type="text/javascript"
+      src="./js/View/navigationControllers.js"
+    ></script>
+    <script type="text/javascript" src="./js/View/popupControllers.js"></script>
+    <script type="text/javascript" src="./js/View/flashControllers.js"></script>
+    <script type="text/javascript" src="./js/View/render.js"></script>
+    <script type="text/javascript" src="./js/Mock/leaderboard.js"></script>
+    <script type="text/javascript" src="./js/Mock/playerInfo.js"></script>
+    <script type="text/javascript" src="./js/Logic/utils.js"></script>
+    <script type="text/javascript" src="./js/Logic/api.js"></script>
+    <script type="text/javascript" src="./js/Logic/instantApi.js"></script>
+    <script type="text/javascript" src="./js/Logic/logics.js"></script>
+    <script type="text/javascript" src="./js/actions.js"></script>
+    <script type="text/javascript" src="./js/initial.js"></script>
+    <link
+      rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+    />
+    <link rel="stylesheet" type="text/css" href="./css/styles.css" />
+  </head>
 
-  <!--
-    + import file from folder or cdn
-    + *.js file in js folder, *.css file in css folder
-    + using jquery 3.3.1
-  -->
-  <script src="https://connect.facebook.net/en_US/fbinstant.6.2.js"></script>
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-  <script type="text/javascript" src="./js/View/controllers.js"></script>
-  <script type="text/javascript" src="./js/View/render.js"></script>
-  <script type="text/javascript" src="./js/Mock/leaderboard.js"></script>
-  <script type="text/javascript" src="./js/Mock/playerInfo.js"></script>
-  <script type="text/javascript" src="./js/Logic/api.js"></script>
-  <script type="text/javascript" src="./js/Logic/game.js"></script>
-  <script type="text/javascript" src="./js/actions.js"></script>
-  <script type="text/javascript" src="./js/initial.js"></script>
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-  <link rel="stylesheet" type="text/css" href="./css/styles.css">
-</head>
-
-<body>
-  <div class="container home-screen">
-    <img class="logo" src="./images/logo.png" />
-    <div class="home-main">
-      <div class="btn-home-content">
-        <button class="btn-home-center" id="btn-home-play">
-          <img src="./images/btn-home-play.png" />
-        </button>
-        <button class="btn-home-center" id="btn-home-friend">
-          <img src="./images/btn-home-friend.png" />
-        </button>
-        <button class="btn-home-center" id="btn-home-time">
-          <img src="./images/btn-home-time.png" />
-        </button>
-      </div>
-      <div class="home-bottom-bar">
-        <button class="btn-home-bottom" id="btn-home-exit">
-          <img src="./images/btn-home-exit.png" />
-        </button>
-        <button class="btn-home-bottom" id="btn-home-leaderboard">
-          <img src="./images/btn-home-leaderboard.png" />
-        </button>
-        <button class="btn-home-bottom" id="btn-home-help">
-          <img src="./images/btn-home-help.png" />
-        </button>
-        <button class="btn-home-bottom" id="btn-home-sound" value=true>
-          <img id="img-home-sound" src="./images/btn-home-sound.png" />
-        </button>
-        <button class="btn-home-bottom" id="btn-home-avatar">
-          <img src="./images/btn-home-background.png" />
-          <img class="img-player-avatar" />
-        </button>
-      </div>
-    </div>
-  </div>
-  <div class="container main-screen">
-    <div class="time" id="time"></div>
-    <div class="main-header">
-      <button class="btn-main btn-back">
-        <img id="btn-main-back" src="./images/ic-back.png" />
-      </button>
-      <div class="score-view">
-        <span id="score">0</span>
-        <img class="star-score" src="./images/ic-star-score.png" />
-      </div>
-    </div>
-    <div class="main-container">
-      <div class="math-view">
-        <div class="operation-view">
-          <span class="operator">+</span>
-          <div class="number-operation">
-            <span class="num1">21</span>
-            <span class="num2">19</span>
-          </div>
+  <body>
+    <div class="container home-screen">
+      <img class="logo" src="./images/logo.png" />
+      <div class="home-main">
+        <div class="btn-home-content">
+          <button class="btn-home-center" id="btn-home-play">
+            <img src="./images/btn-home-play.png" />
+          </button>
+          <button class="btn-home-center" id="btn-home-friend">
+            <img src="./images/btn-home-friend.png" />
+          </button>
+          <button class="btn-home-center" id="btn-home-time">
+            <img src="./images/btn-home-time.png" />
+          </button>
         </div>
-        <div class="operation-result">
-          <span class="equal-character">=</span>
-          <div class="number-result">
-            <span class="result">26</span>
-          </div>
-        </div>
-      </div>
-      <div class="operation-button-view">
-        <button class="btn-main btn-result" value="true">
-          <img src="./images/btn-true.png" />
-        </button>
-        <button class="btn-main btn-result" value="false">
-          <img src="./images/btn-false.png" />
-        </button>
-      </div>
-    </div>
-  </div>
-  <div class="container leaderboard-screen">
-    <button class="btn-leaderboard btn-lb-back">
-      <img id="btn-lb-back" src="./images/ic-back.png" />
-    </button>
-    <span class="lb-title">Leaderboard</span>
-    <div class="leaderboard-content">
-      <div class="lb-shadow">
-        <div class="lb-tabbar">
-          <button class="btn-leaderboard btn-lb-tabar btn-lb-select btn-lb-friend" id="btn-lb-friend">Friends</button>
-          <button class="btn-leaderboard btn-lb-tabar btn-lb-unselect btn-lb-week" id="btn-lb-week">This week</button>
-        </div>
-        <div class="lb-background">
-          <ul id="lb-table">
-          </ul>
-        </div>
-      </div>
-    </div>
-  </div>
-  <div class="container guide-screen">
-    <button class="btn-leaderboard btn-lb-back">
-      <img id="btn-lb-back" src="./images/ic-back.png" />
-    </button>
-    <span class="lb-title">How to play</span>
-    <div class="guide-content">
-      <img src="./images/how-to-play.png" />
-    </div>
-  </div>
-  <div class="container pre-match-screen">
-    <img class="logo" src="./images/logo.png" />
-    <div class="pre-match-content">
-      <div class="pre-match-player-view current-player-view">
-        <span class="current-name-player"></span>
-        <div class="pre-match-avatar">
-          <img src="./images/btn-home-background.png" />
-          <img class="img-player-avatar current-player-avatar" />
-        </div>
-      </div>
-      <div class="vs-text">vs</div>
-      <div class="pre-match-player-view opponent-player-view">
-        <div class="pre-match-avatar">
-          <img src="./images/btn-home-background.png" />
-          <img class="img-player-avatar opponent-player-avatar" />
-        </div>
-        <span class="opponent-name-player"></span>
-      </div>
-    </div>
-  </div>
-  <div class="container waiting-screen">
-  </div>
-  <div class="pop-up-container">
-    <div class="pop-up-box">
-      <div class="pop-up-content" id="game-over-popup">
-        <img class="ribbon" src="./images/ribbon-game-over.png" />
-        <div class="score-result-view">
-          <div class="score-result new-score-result">
-            <span class="score-result-text" id="score-new-text">New</span>
-            <span class="score-result-point" id="new-score">0</span>
-          </div>
-          <div class="score-result best-score-result">
-            <span class="score-result-text" id="score-best-text">Best</span>
-            <span class="score-result-point" id="best-score">0</span>
-            <span class="score-result-point" id="opponent-score">0</span>
-          </div>
-          <div class="score-result pvf-challenge-view">
-            <button class="btn-pop-up" id="btn-share-challenge">Challenge</button>
-          </div>
-        </div>
-        <div class="pop-up-button-view">
-          <button class="btn-pop-up" id="btn-pop-up-exit">
+        <div class="home-bottom-bar">
+          <button class="btn-home-bottom" id="btn-home-exit">
             <img src="./images/btn-home-exit.png" />
           </button>
-          <button class="btn-pop-up" id="btn-pop-up-replay">
-            <img src="./images/btn-popup-replay.png" />
+          <button class="btn-home-bottom" id="btn-home-leaderboard">
+            <img src="./images/btn-home-leaderboard.png" />
           </button>
-          <button class="btn-pop-up" id="btn-pop-up-go-home">
-            <img src="./images/btn-popup-go-home.png" />
+          <button class="btn-home-bottom" id="btn-home-help">
+            <img src="./images/btn-home-help.png" />
           </button>
-        </div>
-      </div>
-      <div class="pop-up-content" id="quit-game-popup">
-        <span class="quit-game-title">Are you sure?</span>
-        <div class="quit-game-view">
-          <button class="btn-pop-up btn-quit-game" id="btn-quit-game">
-            <span class="btn-quit-title">Quit</span>
+          <button class="btn-home-bottom" id="btn-home-sound" value="true">
+            <img id="img-home-sound" src="./images/btn-home-sound.png" />
           </button>
-          <button class="btn-pop-up btn-quit-game" id="btn-quit-game-back">
-            <span class="btn-quit-title">Back</span>
-          </button>
-        </div>
-      </div>
-      <div class="pop-up-content" id="alert-popup">
-        <span class="alert-message"></span>
-      </div>
-      <div class="pop-up-content" id="challenge-popup">
-        <span class="challenge-title">You got a challenge</span>
-        <div class="challenge-view">
-          <button class="btn-pop-up btn-challenge-game" id="btn-challenge-game">
-            <span class="btn-challenge-title">Play</span>
-          </button>
-          <button class="btn-pop-up btn-challenge-game" id="btn-challenge-back">
-            <span class="btn-challenge-back-title">Back</span>
+          <button class="btn-home-bottom" id="btn-home-avatar">
+            <img src="./images/btn-home-background.png" />
+            <img class="img-player-avatar" />
           </button>
         </div>
       </div>
     </div>
-  </div>
-</body>
-
+    <div class="container main-screen">
+      <div class="time" id="time"></div>
+      <div class="main-header">
+        <button class="btn-main btn-back">
+          <img id="btn-main-back" src="./images/ic-back.png" />
+        </button>
+        <div class="score-view">
+          <span id="score">0</span>
+          <img class="star-score" src="./images/ic-star-score.png" />
+        </div>
+      </div>
+      <div class="main-container">
+        <div class="math-view">
+          <div class="operation-view">
+            <span class="operator">+</span>
+            <div class="number-operation">
+              <span class="num1">21</span> <span class="num2">19</span>
+            </div>
+          </div>
+          <div class="operation-result">
+            <span class="equal-character">=</span>
+            <div class="number-result"><span class="result">26</span></div>
+          </div>
+        </div>
+        <div class="operation-button-view">
+          <button class="btn-main btn-result" value="true">
+            <img src="./images/btn-true.png" />
+          </button>
+          <button class="btn-main btn-result" value="false">
+            <img src="./images/btn-false.png" />
+          </button>
+        </div>
+      </div>
+    </div>
+    <div class="container leaderboard-screen">
+      <button class="btn-leaderboard btn-lb-back">
+        <img id="btn-lb-back" src="./images/ic-back.png" />
+      </button>
+      <span class="lb-title">Leaderboard</span>
+      <div class="leaderboard-content">
+        <div class="lb-shadow">
+          <div class="lb-tabbar">
+            <button
+              class="btn-leaderboard btn-lb-tabar btn-lb-select btn-lb-friend"
+              id="btn-lb-friend"
+            >
+              Friends
+            </button>
+            <button
+              class="btn-leaderboard btn-lb-tabar btn-lb-unselect btn-lb-week"
+              id="btn-lb-week"
+            >
+              This week
+            </button>
+          </div>
+          <div class="lb-background"><ul id="lb-table"></ul></div>
+        </div>
+      </div>
+    </div>
+    <div class="container guide-screen">
+      <button class="btn-leaderboard btn-lb-back">
+        <img id="btn-lb-back" src="./images/ic-back.png" />
+      </button>
+      <span class="lb-title">How to play</span>
+      <div class="guide-content"><img src="./images/how-to-play.png" /></div>
+    </div>
+    <div class="container pre-match-screen">
+      <img class="logo" src="./images/logo.png" />
+      <div class="pre-match-content">
+        <div class="pre-match-player-view current-player-view">
+          <span class="current-name-player"></span>
+          <div class="pre-match-avatar">
+            <img src="./images/btn-home-background.png" />
+            <img class="img-player-avatar current-player-avatar" />
+          </div>
+        </div>
+        <div class="vs-text">vs</div>
+        <div class="pre-match-player-view opponent-player-view">
+          <div class="pre-match-avatar">
+            <img src="./images/btn-home-background.png" />
+            <img class="img-player-avatar opponent-player-avatar" />
+          </div>
+          <span class="opponent-name-player"></span>
+        </div>
+      </div>
+    </div>
+    <div class="container waiting-screen"></div>
+    <div class="pop-up-container">
+      <div class="pop-up-box">
+        <div class="pop-up-content" id="game-over-popup">
+          <img class="ribbon" src="./images/ribbon-game-over.png" />
+          <div class="score-result-view">
+            <div class="score-result new-score-result">
+              <span class="score-result-text" id="score-new-text">New</span>
+              <span class="score-result-point" id="new-score">0</span>
+            </div>
+            <div class="score-result best-score-result">
+              <span class="score-result-text" id="score-best-text">Best</span>
+              <span class="score-result-point" id="best-score">0</span>
+              <span class="score-result-point" id="opponent-score">0</span>
+            </div>
+            <div class="score-result pvf-challenge-view">
+              <button class="btn-pop-up" id="btn-share-challenge">
+                Challenge
+              </button>
+            </div>
+          </div>
+          <div class="pop-up-button-view">
+            <button class="btn-pop-up" id="btn-pop-up-exit">
+              <img src="./images/btn-home-exit.png" />
+            </button>
+            <button class="btn-pop-up" id="btn-pop-up-replay">
+              <img src="./images/btn-popup-replay.png" />
+            </button>
+            <button class="btn-pop-up" id="btn-pop-up-go-home">
+              <img src="./images/btn-popup-go-home.png" />
+            </button>
+          </div>
+        </div>
+        <div class="pop-up-content" id="quit-game-popup">
+          <span class="quit-game-title">Are you sure?</span>
+          <div class="quit-game-view">
+            <button class="btn-pop-up btn-quit-game" id="btn-quit-game">
+              <span class="btn-quit-title">Quit</span>
+            </button>
+            <button class="btn-pop-up btn-quit-game" id="btn-quit-game-back">
+              <span class="btn-quit-title">Back</span>
+            </button>
+          </div>
+        </div>
+        <div class="pop-up-content" id="alert-popup">
+          <span class="alert-message"></span>
+        </div>
+        <div class="pop-up-content" id="challenge-popup">
+          <span class="challenge-title">You got a challenge</span>
+          <div class="challenge-view">
+            <button
+              class="btn-pop-up btn-challenge-game"
+              id="btn-challenge-game"
+            >
+              <span class="btn-challenge-title">Play</span>
+            </button>
+            <button
+              class="btn-pop-up btn-challenge-game"
+              id="btn-challenge-back"
+            >
+              <span class="btn-challenge-back-title">Back</span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
 </html>

@@ -46,7 +46,7 @@ $(document).on('click', '#btn-home-sound', function() {
 })
 
 $(document).on('click', '#btn-home-exit', function() {
-  showScreen('#quit-game-popup')
+  showPopup('#quit-game-popup')
 })
 
 //main action
@@ -56,6 +56,8 @@ $(document).on('click', '.btn-result', function() {
 })
 
 $(document).on('click', '#btn-pop-up-replay', function() {
+  const game = Game.currentGame()
+  const { gameMode } = game.config
   if (gameMode === 'single') {
     playGame('single')
   } else if (gameMode === 'fvp') {
@@ -73,17 +75,19 @@ $(document).on('click', '#btn-pop-up-replay', function() {
 })
 
 $(document).on('click', '#btn-pop-up-go-home', function() {
-  gameStatus = 'FREE'
+  const game = Game.currentGame()
+  game.setConfig({ gameStatus: 'FREE' })
   showScreen('.home-screen')
 })
 
 $(document).on('click', '.btn-back', function() {
-  gameStatus = 'FREE'
+  const game = Game.currentGame()
+  game.setConfig({ gameStatus: 'FREE' })
   showScreen('.home-screen')
 })
 
 $(document).on('click', '#btn-pop-up-exit', function() {
-  showScreen('#quit-game-popup')
+  showPopup('#quit-game-popup')
 })
 
 //leaderboard action
@@ -104,31 +108,35 @@ $(document).on('click', '.btn-lb-week', function() {
 
 $(document).on('click', '#btn-quit-game', function() {
   if (gameEnv === 'DEV') {
-    hideQuitGamePopup()
+    hideCurrentPopup()
   } else {
     FBInstant.quit()
   }
 })
 
 $(document).on('click', '#btn-quit-game-back', function() {
-  gameStatus = 'FREE'
-  hideQuitGamePopup()
+  const game = Game.currentGame()
+  game.setConfig({ gameStatus: 'FREE' })
+  hideCurrentPopup()
 })
 
 // challenge action
 
 $(document).on('click', '#btn-challenge-game', function() {
-  hideChallengePopup()
+  hideCurrentPopup()
   showScreen('.waiting-screen')
   syncGamePlayPVF('pvf')
 })
 
 $(document).on('click', '#btn-challenge-back', function() {
   rejectChallenge()
-  gameStatus = 'FREE'
-  hideChallengePopup()
+  const game = Game.currentGame()
+  game.setConfig({ gameStatus: 'FREE' })
+  hideCurrentPopup()
 })
 
 $(document).on('click', '#btn-share-challenge', function() {
+  const game = Game.currentGame()
+  game.setConfig({ gameStatus: 'FREE' })
   shareChallenge()
 })

@@ -14,13 +14,9 @@ if (gameEnv === 'DEV') {
 function setupGame() {
   // app open
   initGame()
+  updatePlayerAvatar() // update current player avatar
   syncPlayer()
   getPlayerLeaderboard()
-  // subscribeGame()
+  subscribeGame()
   checkIsChallenge()
-}
-
-function initGame() {
-  resetScore()
-  randNum()
 }
